@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import datetime
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -160,3 +162,60 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
+
+# 로그 형식 추가
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,  # True일경우 이미 존재하는 로거들을 비활성화
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',  # DEBUG가 True일 때 레코드를 전달합니다 뭔소린지
+        },
+    },
+    # 로그텍스트 형식정의
+    'formatters': {
+        'formatNormal': {'format': '%(levelname)s %(message)s [%(name)s:%(lineno)s]'},
+        'formatTime': {'format': '[%(asctime)s] %(levelname)s %(message)s', 'datefmt': "%Y-%m-%d %H:%M:%S"},
+    },
+    'handlers': {
+        # 파일 저장방식
+        'file': {
+            'level': 'INFO',  # 설정한 레벨이상의 로그만 동작합니다.
+            'class': 'logging.handlers.RotatingFileHandler',  # 파일처리 핸들러로 파일저장
+            'filename': os.path.join(BASE_DIR.parent, "logs/admin_log"+datetime.datetime.now().strftime('%Y-%m-%d')+".log"),
+            'encoding': 'UTF-8',  # 인코딩 깨지지 말라고
+            'maxBytes': 1024 * 1024 * 5,  # 5 MB  /
+            'backupCount': 5,
+            'formatter': 'formatTime',
+        },
+        # 콘솔(터미널)에 출력
+        'console': {
+            'level': 'DEBUG',  # 설정한 레벨이상의 로그만 동작합니다.
+            'class': 'logging.StreamHandler',  # stream으로 로깅출력
+            'formatter': 'formatTime',
+        },
+    },
+    # 설정한 레벨이상의 로그만 동작합니다.  DEBUG < INFO < WARNING < ERROR < CRITICAL
+    'loggers': {
+        # 종류
+        'django.server': {
+            'handlers': ['file', 'console'],
+            'propagate': False,
+            'level': 'DEBUG',  # 설정한 레벨이상의 로그만 동작합니다.
+        },
+        # 'django.server': {
+        #     'handlers': ['file', 'console'],
+        #     'propagate': False,
+        #     'level': 'CRITICAL',
+        # },
+        # 'django.request': {
+        #     'handlers': ['file', 'console'],
+        #     'propagate': False,
+        #     'level': 'DEBUG',
+        # },
+
+    },
+}
