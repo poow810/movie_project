@@ -40,4 +40,3 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
             extra_fields.append('nickname')    
         model = UserModel
         fields = ('pk', *extra_fields)
-        read_only_fields = ('email',)
