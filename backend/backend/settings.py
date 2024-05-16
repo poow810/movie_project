@@ -97,13 +97,13 @@ REST_FRAMEWORK = {
     ],
 }
 
-REST_AUTH = {
-    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
-    'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer',
- }
+# REST_AUTH = {
+#     'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+#     'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer',
+#  }
 
 WSGI_APPLICATION = 'backend.wsgi.application'
-ACCOUNT_ADAPTER  = 'accounts.models.CustomAccountAdapter'
+# ACCOUNT_ADAPTER  = 'accounts.models.CustomAccountAdapter'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -116,6 +116,7 @@ DATABASES = {
 }
 
 CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8080",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
