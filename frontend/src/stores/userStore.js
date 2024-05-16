@@ -6,17 +6,17 @@ import axios from 'axios'
 export const useUserStore = defineStore('userStore', () => {
   const token = ref(null)
   const router = useRouter()
-  const API_KEY = 'http://43.202.204.222/'
+  const BASE_URL = 'http://127.0.0.1:8000'
 
 
   // 회원가입
   const signUp = function (payload) {
-    const { username, password1, password2 } = payload
+    const { username, password1, password2, email, nickname } = payload
     axios({
       method: 'post',
-      url: `${API_KEY}/accounts/signup/`,
+      url: `${BASE_URL}/accounts/signup/`,
       data: {
-        username, password1, password2
+        username, password1, password2, email, nickname
       }
     })
     .then((res) => {
@@ -30,10 +30,10 @@ export const useUserStore = defineStore('userStore', () => {
 
   // 로그인
   const logIn = function (payload) {
-    const { username, password } = password
+    const { username, password } = payload
     axios({
       method: 'post',
-      url: `${API_KEY}/accounts/login/`,
+      url: `${BASE_URL}/accounts/login/`,
       data: {
         username, password
       }
@@ -47,6 +47,6 @@ export const useUserStore = defineStore('userStore', () => {
     })
   }
 
-  return { token, API_KEY, 
+  return { token, BASE_URL, 
   signUp, logIn }
 }, {persist: true})
