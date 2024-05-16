@@ -14,11 +14,11 @@ class CustomRegisterSerializer(RegisterSerializer):
     )
 
     def get_cleaned_data(self):
-        return {
-            'username': self.validated_data.get('username', ''),
-            'password1': self.validated_data.get('password1', ''),
-            'nickname': self.validated_data.get('nickname', ''),
-        }
+        data = super().get_cleaned_data()
+        data['nickname'] = self.validated_data.get('nickname', '')
+        # 이메일 필드 추가
+        data['email'] = self.validated_data.get('email', '')
+        return data
     
 
 class CustomUserDetailsSerializer(UserDetailsSerializer):
