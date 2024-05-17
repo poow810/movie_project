@@ -6,17 +6,18 @@ import axios from 'axios'
 export const useUserStore = defineStore('userStore', () => {
   const token = ref(null)
   const router = useRouter()
-  const BASE_URL = 'http://43.202.204.222'
+  const BASE_URL = 'http://192.168.214.72:8080'
 
 
   // 회원가입
   const signUp = function (payload) {
-    const { username, email, password1, password2 } = payload
+    console.log('gkdfsdfsdfsdf')
+    const { username, nickname, email, password1, password2 } = payload
     axios({
       method: 'post',
       url: `${BASE_URL}/accounts/signup/`,
       data: {
-        username, email, password1, password2
+        username, nickname, email, password1, password2
       }
     })
     .then((res) => {

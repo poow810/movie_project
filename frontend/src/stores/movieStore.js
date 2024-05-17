@@ -6,14 +6,14 @@ import axios from 'axios'
 export const useMovieStore = defineStore('movieStore', () => {
   const token = ref(null)
   const router = useRouter()
-  const BASE_URL = 'http://43.202.204.222'
+  const BASE_URL = 'http://192.168.214.72:8080'
   const API_KEY = ref()
   const movies = ref([])
 
   const getMovies = function () {
     axios({
       method: 'get',
-      url: 'http://192.168.214.72/movies',
+      url: `${BASE_URL}/movies`,
     })
     .then(res => {
       movies.value = res.data

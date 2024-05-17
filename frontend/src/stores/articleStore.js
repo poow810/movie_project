@@ -7,12 +7,12 @@ export const useArticleStore = defineStore('articleStore', () => {
   const articles = ref([])
   const token = ref(null)
   const router = useRouter()
-  const BASE_URL = 'http://43.202.204.222'
+  const BASE_URL = 'http://192.168.214.72:8080'
 
   const getArticles = function () {
     axios({
       method: 'get',
-      url: 'http://192.168.214.72:8080/community/',
+      url: `${BASE_URL}/community/`,
       headers: {
         Authorization: `Token ${token.value}`
       }
@@ -28,7 +28,7 @@ export const useArticleStore = defineStore('articleStore', () => {
   const createArticle = function (title, content, category) {
     axios({
       method: 'post',
-      url: 'http://192.168.214.72:8080/community/create/',
+      url: `${BASE_URL}/community/create/`,
       data: {
         title, content, category
       },
