@@ -10,8 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import datetime
-import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,14 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-nw@!kzdb)8slp5ar)azihe^a(thiz^-v$&ku!u@#szqk8pb899'
+SECRET_KEY = 'django-insecure-(e(msgo*@flawm!5oy73aokxc@wn%6k+#=vs&vlk-!21%6j0sv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '*',
-    '43.202.204.222'
+    '*'
 ]
 
 
@@ -70,6 +67,22 @@ SITE_ID = 1
 
 ROOT_URLCONF = 'backend.urls'
 
+REST_FRAMEWORK = {
+    # Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    # permission
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -86,24 +99,8 @@ TEMPLATES = [
     },
 ]
 
-REST_FRAMEWORK = {
-    # Authentication
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-    # permission
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ],
-}
-
-# REST_AUTH = {
-#     'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
-#     'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer',
-#  }
-
 WSGI_APPLICATION = 'backend.wsgi.application'
-# ACCOUNT_ADAPTER  = 'accounts.models.CustomAccountAdapter'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -114,13 +111,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8080",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
-
 
 
 # Password validation
@@ -158,11 +148,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 AUTH_USER_MODEL = 'accounts.User'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
