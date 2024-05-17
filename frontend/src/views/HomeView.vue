@@ -7,7 +7,7 @@
 
 <script setup>
 import MovieRecentTrailer from '@/components/movie/MovieRecentTrailer.vue'
-import MovieShowingList from '@/components/movie/MovieShowingList.vue'
+// import MovieShowingList from '@/components/movie/MovieShowingList.vue'
 </script>
 
 <style scoped>

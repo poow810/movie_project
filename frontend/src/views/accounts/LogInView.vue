@@ -18,8 +18,8 @@ import { ref } from 'vue'
 import { useUserStore } from '@/stores/userStore'
 const store = useUserStore()
 
-const username = ref(null)
-const password = ref(null)
+const username = ref('')
+const password = ref('')
 
 const logIn = function () {
   const payload = {
