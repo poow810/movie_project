@@ -6,12 +6,20 @@ import axios from 'axios'
 export const useMovieStore = defineStore('movieStore', () => {
   const token = ref(null)
   const router = useRouter()
-  const BASE_URL = 'http://127.0.0.1:8000'
+  const BASE_URL = 'http://43.202.204.222'
   const API_KEY = ref()
+  const movies = ref([])
 
   const getMovies = function () {
     axios({
-      
+      method: 'get',
+      url: 'http://192.168.214.72/movies',
+    })
+    .then(res => {
+      movies.value = res.data
+    })
+    .catch(err => {
+      console.error('영화 데이터를 가져오는 데 실패했습니다:', err)
     })
   }
   
@@ -19,5 +27,5 @@ export const useMovieStore = defineStore('movieStore', () => {
 
 
   
-  return { token, BASE_URL, }
+  return { token, BASE_URL, movies, getMovies}
 }, {persist: true})

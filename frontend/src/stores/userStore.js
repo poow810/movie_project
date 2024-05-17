@@ -11,12 +11,12 @@ export const useUserStore = defineStore('userStore', () => {
 
   // 회원가입
   const signUp = function (payload) {
-    const { username, password1, password2 } = payload
+    const { username, email, password1, password2 } = payload
     axios({
       method: 'post',
       url: `${BASE_URL}/accounts/signup/`,
       data: {
-        username, password1, password2
+        username, email, password1, password2
       }
     })
     .then((res) => {
