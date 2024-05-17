@@ -23,19 +23,8 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = "__all__"
 
-    def validate(self, data):
-        user = self.context['request'].user
-        category = data.get('category')
-
-        # 공지글 카테고리의 ID가 1이라고 가정
-        if category.id == 1 and not user.is_staff:
-            raise serializers.ValidationError("공지글은 관리자만 작성할 수 있습니다.")
-        
-        return data
-    
 
 class CommentSerializer(serializers.ModelSerializer):
-
     
     class Meta:
         model = Comment
