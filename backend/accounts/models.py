@@ -6,6 +6,7 @@ from allauth.account.adapter import DefaultAccountAdapter
 class User(AbstractUser):
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
     nickname = models.CharField(max_length=150)
+    is_best_user = models.BooleanField(default=False)
 
 
 class CustomAccountAdapter(DefaultAccountAdapter):
