@@ -51,7 +51,6 @@ def editPost(request, post_id):
 @login_required
 def comment(request, post_id):
     if request.method == 'POST':
-        print(request.data)
         post = get_object_or_404(Post, pk=post_id)
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
