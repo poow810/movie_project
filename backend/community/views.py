@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -12,10 +13,17 @@ from django.contrib.auth.decorators import login_required
 def post(request):
     if request.method == 'GET':
         posts = get_list_or_404(Post)
-        serializer = PostSerializer(posts, many=True)
-        return Response(serializer.data)
+        category = get_list_or_404(Category)
+        postSerializer = PostSerializer(posts, many=True)
+        categorySerializer = CategorySerializer(category, many=True)
+        context = {
+            'posts': postSerializer.data,
+            'category': categorySerializer.data
+        }
+        return JsonResponse(context)
     
     elif request.method == 'POST':
+        print(request.data)
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
