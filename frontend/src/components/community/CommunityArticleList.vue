@@ -2,7 +2,7 @@
   <div>
     <ul>
       <div
-        v-for="article in store.articles"
+        v-for="article in store.articles.posts"
         :key="article.pk"
       >
         <h3>{{ article.id }}번 게시글</h3>

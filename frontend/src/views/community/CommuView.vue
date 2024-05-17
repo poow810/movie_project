@@ -1,13 +1,14 @@
 <template>
   <div>
-    <CommunityArticle />
-    <CommunityArticleList />
+    <button @click="router.push({name: 'create'})">글쓰기</button>
+    <CommunityArticleList />    
   </div>
 </template>
 
 <script setup>
-import CommunityArticle from '@/components/community/CommunityArticle.vue'
+import { useRouter } from 'vue-router';
 import CommunityArticleList from '@/components/community/CommunityArticleList.vue'
+const router = useRouter()
 </script>
 
 <style scoped>

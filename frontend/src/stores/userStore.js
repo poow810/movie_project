@@ -4,14 +4,13 @@ import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 export const useUserStore = defineStore('userStore', () => {
-  const token = ref(null)
+  const token = ref('')
   const router = useRouter()
   const BASE_URL = 'http://192.168.214.72:8080'
 
 
   // 회원가입
   const signUp = function (payload) {
-    console.log('gkdfsdfsdfsdf')
     const { username, nickname, email, password1, password2 } = payload
     axios({
       method: 'post',
@@ -38,9 +37,13 @@ export const useUserStore = defineStore('userStore', () => {
       url: `${BASE_URL}/accounts/login/`,
       data: {
         username, password
+      },
+      headers: {
+        'Content-Type': 'application/json'
       }
     })
     .then((res) => {
+      console.log(res.data.key)
       token.value = res.data.key
       router.push({ name: 'home' })
     })
