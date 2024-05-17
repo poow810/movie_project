@@ -4,9 +4,9 @@ import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 export const useUserStore = defineStore('userStore', () => {
-  const token = ref('')
+  const token = ref(null)
   const router = useRouter()
-  const BASE_URL = 'http://192.168.214.72:8080'
+  const BASE_URL = 'http://172.29.114.46:8000'
 
   // 로그인 확인
   const isLogIn = computed(() => {

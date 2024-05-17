@@ -8,7 +8,7 @@ export const useArticleStore = defineStore('articleStore', () => {
   const store = useUserStore()
   const router = useRouter()
   const articles = ref([])
-  const BASE_URL = 'http://192.168.214.72:8080'
+  const BASE_URL = 'http://172.29.114.46:8000'
 
   const getArticles = function () {
     // const token = store.token

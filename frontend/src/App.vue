@@ -4,7 +4,6 @@ import { useUserStore } from '@/stores/userStore'
 const store = useUserStore()
 
 const logOut = function () {
-  console.log('hi')
   store.logOut()
 }
 </script>
