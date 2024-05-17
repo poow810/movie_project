@@ -34,6 +34,8 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'accounts',
+    'community',
+    'drf_yasg',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
@@ -50,6 +52,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic'
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
