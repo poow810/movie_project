@@ -8,6 +8,14 @@ export const useUserStore = defineStore('userStore', () => {
   const router = useRouter()
   const BASE_URL = 'http://192.168.214.72:8080'
 
+  // 로그인 확인
+  const isLogIn = computed(() => {
+    if (token.value === null) {
+      return false
+    } else {
+      return true
+    }
+  })
 
   // 회원가입
   const signUp = function (payload) {
@@ -52,6 +60,23 @@ export const useUserStore = defineStore('userStore', () => {
     })
   }
 
-  return { token, BASE_URL, 
-  signUp, logIn }
+  // 로그아웃
+  const logOut = function () {
+    axios({
+      method: 'post',
+      url: `${BASE_URL}/accounts/logout/`,
+      headers: { Authorization: `Token ${token.value}`}
+    })
+    .then((res) => {
+      console.log(res.data)
+      token.value = null // token 초기화
+      router.push({ name: 'login' })
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  return { token, BASE_URL, isLogIn,
+  signUp, logIn, logOut }
 }, {persist: true})
