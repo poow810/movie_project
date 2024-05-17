@@ -13,7 +13,9 @@
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.4.27",
+    "vue-carousel-3d": "^1.0.1",
     "vue-router": "^4.3.2",
+    "vue3-youtube": "^0.1.9",
     "vuex-plugin-persistedstate": "^1.0.6"
   },
   "devDependencies": {
