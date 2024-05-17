@@ -18,7 +18,7 @@ def post(request):
     elif request.method == 'POST':
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
@@ -28,7 +28,7 @@ def post(request):
 def editPost(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.method == 'PUT' and request.user == post.user:
-        serializer = PostSerializer(request.POST, instance=post)
+        serializer = PostSerializer(instance=post, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -43,6 +43,7 @@ def editPost(request, post_id):
 @login_required
 def comment(request, post_id):
     if request.method == 'POST':
+        print(request.data)
         post = get_object_or_404(Post, pk=post_id)
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
@@ -57,7 +58,7 @@ def commentUpdate(request, post_id, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
     if request.method == 'PUT' and request.user == comment.user:
         post = get_object_or_404(Post, pk=post_id)
-        serializer = CommentSerializer(request.POST, instance=comment)
+        serializer = CommentSerializer(instance=comment, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save(post=post)
             return Response(serializer.data, status=status.HTTP_200_OK)
