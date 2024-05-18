@@ -4,9 +4,17 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.contrib.auth import get_user_model
-# Create your views here.
+from rest_framework import status
+from rest_framework.views import APIView
+from movie_project.backend.accounts.serializers import FindUserNameSerializer
 
 User = get_user_model()
+
+@api_view(['POST'])
+def findId(request, email):
+    username = get_object_or_404(User, email=email)
+    serializer = FindUserNameSerializer(username)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])

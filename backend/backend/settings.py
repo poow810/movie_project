@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-(e(msgo*@flawm!5oy73aokxc@wn%6k+#=vs&vlk-!21%6j0sv
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '*'
+    '*',
+    ".ap-northeast-2.compute.amazonaws.com",
 ]
 
 
@@ -35,6 +36,7 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'accounts',
     'community',
+    'movie',
     'drf_yasg',
     'corsheaders',
     'rest_framework',
@@ -88,10 +90,14 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
+REST_AUTH = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer',
+ }
+
+ACCOUNT_ADAPTER  = 'accounts.models.CustomAccountAdapter'
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
@@ -141,7 +147,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ACCOUNT_ADAPTER  = 'accounts.models.CustomAccountAdapter'
 
+REST_AUTH = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer',
+}
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -167,3 +178,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+import os
+import environ
+
+env = environ.Env(DEBUG=(bool, True))
+
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR, '.env')
+)
+
+TMDB_API_KEY = env('TMDB_API_KEY')
+OPENAI_API_KEY = env('OPENAI_API_KEY')
