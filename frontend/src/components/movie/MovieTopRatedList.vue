@@ -22,7 +22,6 @@ import 'swiper/swiper-bundle.css';
 const store = useMovieStore()
 const movies = store.ratedMovies 
 onMounted(() => {
-  console.log('ok')
   store.getRatedMovies()
 })
 

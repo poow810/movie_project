@@ -13,16 +13,15 @@ export const useRecomStore = defineStore('recomStore', () => {
 
   const recomSetGenre = ref([])
 
-  const setPreferredGenre = (genre) => {
-    preferredGenres.value = genre
-  }
-
-  const getGenreMovies = async () => {
+  const getGenreToServer = async (select) => {
     axios({
-      method: 'get',
-      url: `${LOCAL_URL}/movie/recommend`,
+      method: 'post',
+      url: `${LOCAL_URL}/movie/genreselect/`,
       headers: {
         Authorization: `Token ${token}`
+      },
+      data: {
+        genre: select
       }
     })
     .then(res => {
@@ -35,6 +34,7 @@ export const useRecomStore = defineStore('recomStore', () => {
   }
 
   
-  return { store, token, BASE_URL, LOCAL_URL, recomSetGenre, preferredGenres, getGenreMovies, setPreferredGenre, 
+  
+  return { store, token, BASE_URL, LOCAL_URL, recomSetGenre, getGenreToServer, 
    }
 }, {persist: true})

@@ -22,7 +22,6 @@ import 'swiper/swiper-bundle.css';
 const store = useMovieStore()
 const movies = store.nowPlayingMovies 
 onMounted(() => {
-  console.log('ok')
   store.getNowPlayingMovies()
 })
 
