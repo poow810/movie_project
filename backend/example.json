@@ -1,37 +1,38 @@
 {
-    "movie-id": 20532,
-    "title": "산쇼다유",
-    "released_date": "1954-03-31",
-    "popularity": 25.833,
-    "vote_avg": 8.102,
-    "overview": "여행 중 인신매매범의 손에 걸려 모친과 헤어지게 된 주시오와 안주의 오누이는 호족 산쇼다유에게 팔리게 된다. 노예나 다름없게 된 이 두 사람은 중노동에 시달리면서도 모친과의 재회를 꿈꾸며 하루하루를 보낸다. 그로부터 십년 후 여전히 산쇼다유의 수용소에 갇혀있는 이들은 어느 날 새로 들어온 젊은 여인이 부르는 노래에 자신들의 이름이 들어있는 것을 알고는 깜짝 놀란다.\r 인신매매가 횡행하는 헤이안 시대를 배경으로 부모 자식 간의 애정 그리고 인신매매 등의 인권 문제를 그리고 있는 작품으로, 단순한 이슈로서의 사회성을 인간 조건의 비극성에까지 끌고 간 걸작이다.",
-    "poster_path": "/hoOyEvuGKw8CVXTCX6PPYlwrAaZ.jpg",
-    "genres": [
-        18
-    ],
-    "actors": [
-        {
-            "name": "다나카 기누요",
-            "character": "Tamaki"
-        },
-        {
-            "name": "Yoshiaki Hanayagi",
-            "character": "Zushiô"
-        },
-        {
-            "name": "카가와 쿄코",
-            "character": "Anju"
-        },
-        {
-            "name": "Eitarō Shindō",
-            "character": "Sanshô dayû"
-        },
-        {
-            "name": "Akitake Kôno",
-            "character": "Taro"
-        }
-    ],
-    "directors": [
-        "미조구치 겐지"
-    ]
-}
+			"movie-id": 1219685,
+			"title": "Un père idéal",
+			"released_date": "2024-04-21",
+			"popularity": 1300.038,
+			"vote_avg": 6.318,
+			"overview": "",
+			"poster_path": "/4xJd3uwtL1vCuZgEfEc8JXI9Uyx.jpg",
+			"genres": [
+				18,
+				10770
+			],
+			"actors": [
+				{
+					"name": "Laurent Gerra",
+					"character": "Michel"
+				},
+				{
+					"name": "Eddy Mitchell",
+					"character": "Jeff"
+				},
+				{
+					"name": "Laure-Lucille Simon",
+					"character": "Florence Pasquier"
+				},
+				{
+					"name": "Jérôme Kircher",
+					"character": "Max"
+				},
+				{
+					"name": "Tess Barthélémy",
+					"character": "Christelle"
+				}
+			],
+			"directors": [
+				"Hélène Fillières"
+			]
+		}
