@@ -7,16 +7,25 @@ export const useUserStore = defineStore('userStore', () => {
   const token = ref(null)
   const router = useRouter()
   const BASE_URL = 'http://43.202.204.222'
+  const LOCAL_URL = 'http://192.168.0.13:8000'
 
+  // 로그인 확인
+  const isLogIn = computed(() => {
+    if (token.value === null) {
+      return false
+    } else {
+      return true
+    }
+  })
 
   // 회원가입
   const signUp = function (payload) {
-    const { username, password1, password2 } = payload
+    const { username, nickname, email, password1, password2 } = payload
     axios({
       method: 'post',
-      url: `${BASE_URL}/accounts/signup/`,
+      url: `${LOCAL_URL}/accounts/signup/`,
       data: {
-        username, password1, password2
+        username, nickname, email, password1, password2
       }
     })
     .then((res) => {
@@ -34,12 +43,16 @@ export const useUserStore = defineStore('userStore', () => {
     const { username, password } = payload
     axios({
       method: 'post',
-      url: `${BASE_URL}/accounts/login/`,
+      url: `${LOCAL_URL}/accounts/login/`,
       data: {
         username, password
+      },
+      headers: {
+        'Content-Type': 'application/json'
       }
     })
     .then((res) => {
+      console.log(res.data.key)
       token.value = res.data.key
       router.push({ name: 'home' })
     })
@@ -48,6 +61,25 @@ export const useUserStore = defineStore('userStore', () => {
     })
   }
 
-  return { token, BASE_URL, 
-  signUp, logIn }
+  // 로그아웃
+  const logOut = function () {
+    axios({
+      method: 'post',
+      url: `${LOCAL_URL}/accounts/logout/`,
+      headers: { Authorization: `Token ${token.value}`}
+    })
+    .then((res) => {
+      console.log('로그아웃 성공')
+      console.log(res.data)
+      token.value = null // token 초기화
+      router.push({ name: 'login' })
+    })
+    .catch((err) => {
+      console.log('로그아웃 실패')
+      console.log(err)
+    })
+  }
+
+  return { token, BASE_URL, LOCAL_URL, isLogIn,
+  signUp, logIn, logOut }
 }, {persist: true})

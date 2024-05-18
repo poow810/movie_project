@@ -11,15 +11,18 @@
       <input type="submit" value="logIn">
     </form>
   </div>
+  <button @click="router.push({ name: 'passwordchange' })">비밀번호 변경</button>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { useUserStore } from '@/stores/userStore'
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const store = useUserStore()
 
-const username = ref(null)
-const password = ref(null)
+const username = ref('')
+const password = ref('')
 
 const logIn = function () {
   const payload = {

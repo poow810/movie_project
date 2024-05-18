@@ -16,7 +16,7 @@
 import { ref } from 'vue';
 import YouTube from 'vue3-youtube';
 
-const videoId = 'UPSPBnrqNmk'; // 여기에 원하는 YouTube 비디오 ID를 넣으세요.
+const videoId = 't-wtypjoRIY'; // 여기에 원하는 YouTube 비디오 ID를 넣으세요.
 const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
 const youtube = ref(null);
 
