@@ -9,7 +9,6 @@ from .serializers import MovieSerializer, GenreSerializer
 
 
 @api_view(['GET'])
-@login_required
 def get_genre(request):
     if request.method == 'GET':
         movies = get_list_or_404(Movie)

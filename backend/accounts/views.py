@@ -6,7 +6,8 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.views import APIView
-from movie_project.backend.accounts.serializers import FindUserNameSerializer
+from .serializers import FindUserNameSerializer, UserCommentSerializer, UserMovieSerializer, UserPostSerializer, UserDetailsSerializer
+from community.models import Comment, Post
 
 User = get_user_model()
 
@@ -19,12 +20,10 @@ def findId(request, email):
 
 @api_view(['GET'])
 @login_required
-def profile(request, username):
-    person = get_object_or_404(User, username=username)
-    context = {
-        'person': person,
-    }
-    return Response(context)
+def profile(request, user_id):
+    person = get_object_or_404(User, pk=user_id)
+    serializer = UserDetailsSerializer(person)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -46,3 +45,29 @@ def follow(request, user_pk):
         return Response(context)
     
 
+@api_view(['GET'])
+@login_required
+def posts(request, user_id):
+    if request.method == 'GET':
+        posts = get_list_or_404(Post, user=user_id)
+        serializer = UserPostSerializer(posts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
+
+@api_view(['GET'])
+@login_required
+def movies(request, user_id):
+    if request.method == 'GET':
+        user = get_object_or_404(User, id=user_id)
+        liked_movies = user.liked_movies.all()
+        serializer = UserMovieSerializer(liked_movies, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
+
+@api_view(['GET'])
+@login_required
+def comments(request, user_id):
+    if request.method == 'GET':
+        comments = get_list_or_404(Comment, user=user_id)
+        serializer = UserCommentSerializer(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
