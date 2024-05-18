@@ -20,7 +20,6 @@ import { useMovieStore } from '@/stores/movieStore'
 const store = useMovieStore()
 const movies = store.genreMovies 
 onMounted(() => {
-  console.log('ok')
   store.getGenreList()
 })
 
