@@ -21,9 +21,7 @@ def get_genre(request):
 @login_required
 def genre_select(request):
     if request.method == 'GET':
-        print(request.GET)
         genreIds = request.GET.getlist('genre[]')
-        print(genreIds)
         movies = Movie.objects.annotate(num_genres=Count('genres', filter=Q(genres__id__in=genreIds))
         ).filter(num_genres__gt=0).order_by('-num_genres', '-popularity')
         serializer = MovieSerializer(movies, many=True)
