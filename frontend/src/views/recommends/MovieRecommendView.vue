@@ -1,6 +1,6 @@
 <template>
   <div>
-    영화
+    영화 추천
   </div>
 </template>
 
