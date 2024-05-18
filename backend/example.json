@@ -1,38 +1,158 @@
 {
-			"movie-id": 1219685,
-			"title": "Un père idéal",
-			"released_date": "2024-04-21",
-			"popularity": 1300.038,
-			"vote_avg": 6.318,
-			"overview": "",
-			"poster_path": "/4xJd3uwtL1vCuZgEfEc8JXI9Uyx.jpg",
-			"genres": [
-				18,
-				10770
-			],
-			"actors": [
-				{
-					"name": "Laurent Gerra",
-					"character": "Michel"
-				},
-				{
-					"name": "Eddy Mitchell",
-					"character": "Jeff"
-				},
-				{
-					"name": "Laure-Lucille Simon",
-					"character": "Florence Pasquier"
-				},
-				{
-					"name": "Jérôme Kircher",
-					"character": "Max"
-				},
-				{
-					"name": "Tess Barthélémy",
-					"character": "Christelle"
-				}
-			],
-			"directors": [
-				"Hélène Fillières"
-			]
-		}
+	"name": "movie data",
+	"data": [
+        {
+        "movie-id": 1134055,
+        "title": "킬 샷",
+        "released_date": "2023-08-15",
+        "popularity": 29.854,
+        "vote_avg": 4.2,
+        "overview": "아프가니스탄에서 탈취한 백만달러를 미국으로 이송하던 비행기가 숲에 추락한다. 때마침 현직 사냥 가이드이던 전직 특수부대원 잭슨과 그의 고객 케이트가 숲에서 현금을 발견하게 된다. 그리고 현금 가방에 부착된 추적장치를 쫓아 국제 테러리스트의 용병들이 도착한다. 인적이라곤 없는 깊은 숲속에서 현금 다발을 두고 죽고 죽이는 처절한 대결이 펼쳐진다.",
+        "poster_path": "/uQxNMfwclU4dB1VtNPLDfhQpjTd.jpg",
+        "genres": [
+            28
+        ],
+        "actors": [
+            {
+                "name": "Rib Hillis",
+                "character": "Jackson Hardison"
+            },
+            {
+                "name": "Rachel Cook",
+                "character": "Kate"
+            },
+            {
+                "name": "Todd Gordon",
+                "character": "Jim McCluskey"
+            },
+            {
+                "name": "Ari Novak",
+                "character": "Alpha ONE"
+            },
+            {
+                "name": "Xian Mikol",
+                "character": "Sarah Hardison"
+            }
+        ],
+        "directors": [
+            "Ari Novak"
+        ]
+    },
+    {
+    "movie-id": 1059,
+    "title": "숨겨진 요새의 세 악인",
+    "released_date": "1958-12-28",
+    "popularity": 26.425,
+    "vote_avg": 8.0,
+    "overview": "봉건 시대 일본, 씨족 간의 피비린내 나는 전쟁이 벌어지는 가운데 패배한 군대의 병사인 비겁하고 탐욕스러운 두 농부는 산 속에 숨겨진 요새로 안내하는 의문의 남자를 우연히 만나게 됩니다.",
+    "poster_path": "/wOIj6gJgAr6X2GzkWLltsoMfEvE.jpg",
+    "genres": [
+        18,
+        28,
+        12
+    ],
+    "actors": [
+        {
+            "name": "미후네 토시로",
+            "character": "General Rokurota Makabe"
+        },
+        {
+            "name": "Minoru Chiaki",
+            "character": "Tahei"
+        },
+        {
+            "name": "Kamatari Fujiwara",
+            "character": "Matashichi"
+        },
+        {
+            "name": "Misa Uehara",
+            "character": "Princess Yuki"
+        },
+        {
+            "name": "Susumu Fujita",
+            "character": "General Hyoe Tadokoro"
+        }
+    ],
+    "directors": [
+        "구로사와 아키라"
+    ]
+},
+{
+    "movie-id": 1574,
+    "title": "시카고",
+    "released_date": "2002-12-10",
+    "popularity": 38.174,
+    "vote_avg": 7.114,
+    "overview": "단조롭고 지루한 일상에서 벗어나기를 꿈꾸며 화려한 무대 위 스타가 되길 꿈꾸는 록시(르네 젤위거)는 우발적인 살인으로 교도소에 수감된다. ​그곳에서 만난 매혹적인 시카고 최고의 디바 벨마(캐서린 제타 존스)는 승률 100%의 변호사 빌리(리처드 기어)와 무죄 석방을 위한 계획을 짜고 있다. 빌리는 법정을 하나의 무대로 탈바꿈시키는 쇼 비즈니스의 대가로, ​자극적인 사건에 불나방처럼 모여드는 언론의 속성을 교묘하게 이용한다. 록시 또한 빌리의 흥미를 끌어 자신의 변호를 맡기게 되고, ​평범한 가수 지망생에 불과했던 록시는 신문의 1면을 장식하며 일약 스타덤에 오르게 되는데...",
+    "poster_path": "/mEkMT13H2HXoTP6KdCwhaPYSSdD.jpg",
+    "genres": [
+        35,
+        80,
+        18
+    ],
+    "actors": [
+        {
+            "name": "르네 젤위거",
+            "character": "Roxie Hart"
+        },
+        {
+            "name": "캐서린 제타존스",
+            "character": "Velma Kelly"
+        },
+        {
+            "name": "리처드 기어",
+            "character": "Billy Flynn"
+        },
+        {
+            "name": "퀸 라티파",
+            "character": "Matron Mama Morton"
+        },
+        {
+            "name": "존 C. 라일리",
+            "character": "Amos Hart"
+        }
+    ],
+    "directors": [
+        "롭 마셜"
+    ]
+},
+{
+    "movie-id": 39858,
+    "title": "미녀의 창자",
+    "released_date": "1986-09-23",
+    "popularity": 21.172,
+    "vote_avg": 4.86,
+    "overview": "처녀의 창자 속편",
+    "poster_path": "/3bAstAPpt3E5dslgLOhbftZTLeN.jpg",
+    "genres": [
+        27,
+        878
+    ],
+    "actors": [
+        {
+            "name": "Megumi Ozawa",
+            "character": "Hiromi"
+        },
+        {
+            "name": "Seira Kitagawa",
+            "character": "Yoshimi"
+        },
+        {
+            "name": "Ken Yoshizawa",
+            "character": "Yoshioka"
+        },
+        {
+            "name": "Ayako Ishii",
+            "character": ""
+        },
+        {
+            "name": "Shinji Sekikawa",
+            "character": ""
+        }
+    ],
+    "directors": [
+        "Kazuo Komizu"
+    ]
+}
+]
+}
