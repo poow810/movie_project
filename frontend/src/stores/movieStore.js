@@ -9,9 +9,10 @@ export const useMovieStore = defineStore('movieStore', () => {
   const BASE_URL = 'http://172.30.1.37:8000'
   const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY
-  const movies = ref([])
+  const nowPlayingMovies = ref([])
+  const ratedMovies = ref([])
 
-  const getMovies = async () => {
+  const getRatedMovies = async () => {
     axios({
       method: 'get',
       url: `${TMDB_BASE_URL}/movie/top_rated`,
@@ -22,12 +23,30 @@ export const useMovieStore = defineStore('movieStore', () => {
     })
     .then(res => {
       console.log('영화 데이터 가져오기 성공:', res.data)
-      movies.value = res.data.results
+      ratedMovies.value = res.data.results
+    })
+    .catch(err => {
+      console.error('영화 데이터 가져오기 실패:', err)
+    })
+  }
+
+  const getNowPlayingMovies = async () => {
+    axios({
+      method: 'get',
+      url: `${TMDB_BASE_URL}/movie/now_playing`,
+      params: {
+        api_key: API_KEY,
+        language: 'ko-KR'
+      }
+    })
+    .then(res => {
+      console.log('영화 데이터 가져오기 성공:', res.data)
+      nowPlayingMovies.value = res.data.results
     })
     .catch(err => {
       console.error('영화 데이터 가져오기 실패:', err)
     })
   }
   
-  return { token, BASE_URL, movies, getMovies }
+  return { token, BASE_URL, nowPlayingMovies, ratedMovies, getRatedMovies, getNowPlayingMovies }
 }, {persist: true})
