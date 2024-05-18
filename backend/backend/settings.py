@@ -189,3 +189,4 @@ environ.Env.read_env(
 )
 
 TMDB_API_KEY = env('TMDB_API_KEY')
+OPENAI_API_KEY = env('OPENAI_API_KEY')
