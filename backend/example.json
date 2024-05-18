@@ -1,37 +1,158 @@
 {
-    "movie-id": 20532,
-    "title": "산쇼다유",
-    "released_date": "1954-03-31",
-    "popularity": 25.833,
-    "vote_avg": 8.102,
-    "overview": "여행 중 인신매매범의 손에 걸려 모친과 헤어지게 된 주시오와 안주의 오누이는 호족 산쇼다유에게 팔리게 된다. 노예나 다름없게 된 이 두 사람은 중노동에 시달리면서도 모친과의 재회를 꿈꾸며 하루하루를 보낸다. 그로부터 십년 후 여전히 산쇼다유의 수용소에 갇혀있는 이들은 어느 날 새로 들어온 젊은 여인이 부르는 노래에 자신들의 이름이 들어있는 것을 알고는 깜짝 놀란다.\r 인신매매가 횡행하는 헤이안 시대를 배경으로 부모 자식 간의 애정 그리고 인신매매 등의 인권 문제를 그리고 있는 작품으로, 단순한 이슈로서의 사회성을 인간 조건의 비극성에까지 끌고 간 걸작이다.",
-    "poster_path": "/hoOyEvuGKw8CVXTCX6PPYlwrAaZ.jpg",
+	"name": "movie data",
+	"data": [
+        {
+        "movie-id": 1134055,
+        "title": "킬 샷",
+        "released_date": "2023-08-15",
+        "popularity": 29.854,
+        "vote_avg": 4.2,
+        "overview": "아프가니스탄에서 탈취한 백만달러를 미국으로 이송하던 비행기가 숲에 추락한다. 때마침 현직 사냥 가이드이던 전직 특수부대원 잭슨과 그의 고객 케이트가 숲에서 현금을 발견하게 된다. 그리고 현금 가방에 부착된 추적장치를 쫓아 국제 테러리스트의 용병들이 도착한다. 인적이라곤 없는 깊은 숲속에서 현금 다발을 두고 죽고 죽이는 처절한 대결이 펼쳐진다.",
+        "poster_path": "/uQxNMfwclU4dB1VtNPLDfhQpjTd.jpg",
+        "genres": [
+            28
+        ],
+        "actors": [
+            {
+                "name": "Rib Hillis",
+                "character": "Jackson Hardison"
+            },
+            {
+                "name": "Rachel Cook",
+                "character": "Kate"
+            },
+            {
+                "name": "Todd Gordon",
+                "character": "Jim McCluskey"
+            },
+            {
+                "name": "Ari Novak",
+                "character": "Alpha ONE"
+            },
+            {
+                "name": "Xian Mikol",
+                "character": "Sarah Hardison"
+            }
+        ],
+        "directors": [
+            "Ari Novak"
+        ]
+    },
+    {
+    "movie-id": 1059,
+    "title": "숨겨진 요새의 세 악인",
+    "released_date": "1958-12-28",
+    "popularity": 26.425,
+    "vote_avg": 8.0,
+    "overview": "봉건 시대 일본, 씨족 간의 피비린내 나는 전쟁이 벌어지는 가운데 패배한 군대의 병사인 비겁하고 탐욕스러운 두 농부는 산 속에 숨겨진 요새로 안내하는 의문의 남자를 우연히 만나게 됩니다.",
+    "poster_path": "/wOIj6gJgAr6X2GzkWLltsoMfEvE.jpg",
     "genres": [
+        18,
+        28,
+        12
+    ],
+    "actors": [
+        {
+            "name": "미후네 토시로",
+            "character": "General Rokurota Makabe"
+        },
+        {
+            "name": "Minoru Chiaki",
+            "character": "Tahei"
+        },
+        {
+            "name": "Kamatari Fujiwara",
+            "character": "Matashichi"
+        },
+        {
+            "name": "Misa Uehara",
+            "character": "Princess Yuki"
+        },
+        {
+            "name": "Susumu Fujita",
+            "character": "General Hyoe Tadokoro"
+        }
+    ],
+    "directors": [
+        "구로사와 아키라"
+    ]
+},
+{
+    "movie-id": 1574,
+    "title": "시카고",
+    "released_date": "2002-12-10",
+    "popularity": 38.174,
+    "vote_avg": 7.114,
+    "overview": "단조롭고 지루한 일상에서 벗어나기를 꿈꾸며 화려한 무대 위 스타가 되길 꿈꾸는 록시(르네 젤위거)는 우발적인 살인으로 교도소에 수감된다. ​그곳에서 만난 매혹적인 시카고 최고의 디바 벨마(캐서린 제타 존스)는 승률 100%의 변호사 빌리(리처드 기어)와 무죄 석방을 위한 계획을 짜고 있다. 빌리는 법정을 하나의 무대로 탈바꿈시키는 쇼 비즈니스의 대가로, ​자극적인 사건에 불나방처럼 모여드는 언론의 속성을 교묘하게 이용한다. 록시 또한 빌리의 흥미를 끌어 자신의 변호를 맡기게 되고, ​평범한 가수 지망생에 불과했던 록시는 신문의 1면을 장식하며 일약 스타덤에 오르게 되는데...",
+    "poster_path": "/mEkMT13H2HXoTP6KdCwhaPYSSdD.jpg",
+    "genres": [
+        35,
+        80,
         18
     ],
     "actors": [
         {
-            "name": "다나카 기누요",
-            "character": "Tamaki"
+            "name": "르네 젤위거",
+            "character": "Roxie Hart"
         },
         {
-            "name": "Yoshiaki Hanayagi",
-            "character": "Zushiô"
+            "name": "캐서린 제타존스",
+            "character": "Velma Kelly"
         },
         {
-            "name": "카가와 쿄코",
-            "character": "Anju"
+            "name": "리처드 기어",
+            "character": "Billy Flynn"
         },
         {
-            "name": "Eitarō Shindō",
-            "character": "Sanshô dayû"
+            "name": "퀸 라티파",
+            "character": "Matron Mama Morton"
         },
         {
-            "name": "Akitake Kôno",
-            "character": "Taro"
+            "name": "존 C. 라일리",
+            "character": "Amos Hart"
         }
     ],
     "directors": [
-        "미조구치 겐지"
+        "롭 마셜"
     ]
+},
+{
+    "movie-id": 39858,
+    "title": "미녀의 창자",
+    "released_date": "1986-09-23",
+    "popularity": 21.172,
+    "vote_avg": 4.86,
+    "overview": "처녀의 창자 속편",
+    "poster_path": "/3bAstAPpt3E5dslgLOhbftZTLeN.jpg",
+    "genres": [
+        27,
+        878
+    ],
+    "actors": [
+        {
+            "name": "Megumi Ozawa",
+            "character": "Hiromi"
+        },
+        {
+            "name": "Seira Kitagawa",
+            "character": "Yoshimi"
+        },
+        {
+            "name": "Ken Yoshizawa",
+            "character": "Yoshioka"
+        },
+        {
+            "name": "Ayako Ishii",
+            "character": ""
+        },
+        {
+            "name": "Shinji Sekikawa",
+            "character": ""
+        }
+    ],
+    "directors": [
+        "Kazuo Komizu"
+    ]
+}
+]
 }
