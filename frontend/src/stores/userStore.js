@@ -6,7 +6,8 @@ import axios from 'axios'
 export const useUserStore = defineStore('userStore', () => {
   const token = ref(null)
   const router = useRouter()
-  const BASE_URL = 'http://172.30.1.37:8000'
+  const BASE_URL = 'http://43.202.204.222'
+  const LOCAL_URL = 'http://192.168.0.13:8000'
 
   // 로그인 확인
   const isLogIn = computed(() => {
@@ -22,7 +23,7 @@ export const useUserStore = defineStore('userStore', () => {
     const { username, nickname, email, password1, password2 } = payload
     axios({
       method: 'post',
-      url: `${BASE_URL}/accounts/signup/`,
+      url: `${LOCAL_URL}/accounts/signup/`,
       data: {
         username, nickname, email, password1, password2
       }
@@ -42,7 +43,7 @@ export const useUserStore = defineStore('userStore', () => {
     const { username, password } = payload
     axios({
       method: 'post',
-      url: `${BASE_URL}/accounts/login/`,
+      url: `${LOCAL_URL}/accounts/login/`,
       data: {
         username, password
       },
@@ -64,7 +65,7 @@ export const useUserStore = defineStore('userStore', () => {
   const logOut = function () {
     axios({
       method: 'post',
-      url: `${BASE_URL}/accounts/logout/`,
+      url: `${LOCAL_URL}/accounts/logout/`,
       headers: { Authorization: `Token ${token.value}`}
     })
     .then((res) => {
@@ -79,6 +80,6 @@ export const useUserStore = defineStore('userStore', () => {
     })
   }
 
-  return { token, BASE_URL, isLogIn,
+  return { token, BASE_URL, LOCAL_URL, isLogIn,
   signUp, logIn, logOut }
 }, {persist: true})
