@@ -1,25 +1,31 @@
 <template>
   <div>
-    <h2>상영중인 영화</h2>
-    <ul>
-      <li v-for="movie in movies" :key="movie.id">
-        <h2>{{ movie.title }}</h2>
-        <p>{{ movie.description }}</p>
-        <p>상영 시간: {{ movie.showtime }}</p>
-      </li>
-    </ul>
+    <h4>평점이 높은 영화</h4>
+    <!-- Swiper -->
+    <swiper :slides-per-view="3" :space-between="50" class="mySwiper">
+      <swiper-slide v-for="movie in movies" :key="movie.id">
+        <img :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`" />
+        <h3>{{ movie.title }}</h3>
+        <p>평점: {{ movie.vote_average }}</p>
+        <!-- <p>줄거리: {{ movie.overview }}</p> -->
+      </swiper-slide>
+    </swiper>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from 'vue';
 import { useMovieStore } from '@/stores/movieStore'
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/swiper-bundle.css';
 
-const movies = store.movies
 const store = useMovieStore()
+const movies = store.movies
 onMounted(() => {
+  console.log('ok')
   store.getMovies()
-}),
+})
+
 </script>
 
 <style scoped>
