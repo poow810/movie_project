@@ -18,6 +18,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    like_count = models.IntegerField(default=0)
 
 
 class Community(models.Model):
