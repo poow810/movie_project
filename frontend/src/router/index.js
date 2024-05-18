@@ -8,6 +8,7 @@ import LogOug from '@/components/accounts/LogOut.vue'
 import PasswordChange from '@/components/accounts/PasswordChange.vue'
 import ActorView from '@/views/actors/ActorView.vue'
 import MovieRecomselectView from '@/views/recommend/MovieRecomselectView.vue'
+import MovieRecommendView from '@/views/recommend/MovieRecommendView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,9 +54,14 @@ const router = createRouter({
       component: ActorView
     },
     {
-      path: '/movies/recommend',
-      name: 'recommend',
+      path: '/movies/genreselect',
+      name: 'genreselect',
       component: MovieRecomselectView
+    },
+    {
+      path: '/movie/recommend',
+      name: 'recommend',
+      component: MovieRecommendView
     }
   ]
 })
