@@ -6,7 +6,7 @@ import axios from 'axios'
 export const useUserStore = defineStore('userStore', () => {
   const token = ref(null)
   const router = useRouter()
-  const BASE_URL = 'http://43.202.204.222'
+  const SERVER_URL = 'http://43.202.204.222'
   const LOCAL_URL = 'http://192.168.0.13:8000'
 
   // 로그인 확인
@@ -80,6 +80,6 @@ export const useUserStore = defineStore('userStore', () => {
     })
   }
 
-  return { token, BASE_URL, LOCAL_URL, isLogIn,
+  return { token, SERVER_URL, LOCAL_URL, isLogIn,
   signUp, logIn, logOut }
 }, {persist: true})

@@ -9,7 +9,7 @@ export const useArticleStore = defineStore('articleStore', () => {
   const token = store.token
   const router = useRouter()
   const articles = ref([])
-  const BASE_URL = 'http://43.202.204.222'
+  const SERVER_URL = 'http://43.202.204.222'
   const LOCAL_URL = 'http://192.168.0.13:8000'
 
   const getArticles = function () {
@@ -54,5 +54,5 @@ export const useArticleStore = defineStore('articleStore', () => {
     })
   }
   
-  return  {BASE_URL, LOCAL_URL, articles, token, getArticles, createArticle}
+  return  {SERVER_URL, LOCAL_URL, articles, token, getArticles, createArticle}
 }, {persist: true})
