@@ -1,6 +1,6 @@
 <template>
   <div>
-    영화
+    배우 순위 및 필모그래피
   </div>
 </template>
 

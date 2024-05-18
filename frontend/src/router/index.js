@@ -6,6 +6,8 @@ import CommuView from '@/views/community/CommuView.vue'
 import CommuArticleCreateView from '@/views/community/CommuArticleCreateView.vue'
 import LogOug from '@/components/accounts/LogOut.vue'
 import PasswordChange from '@/components/accounts/PasswordChange.vue'
+import ActorView from '@/views/actors/ActorView.vue'
+import MovieRecommendView from '@/views/recommends/MovieRecommendView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +46,16 @@ const router = createRouter({
       path: '/accounts/passwordchange',
       name: 'passwordchange',
       component: PasswordChange
+    },
+    {
+      path: '/actors',
+      name: 'actor',
+      component: ActorView
+    },
+    {
+      path: '/movies/recommend',
+      name: 'recommend',
+      component: MovieRecommendView
     }
   ]
 })

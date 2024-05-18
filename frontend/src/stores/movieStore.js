@@ -6,9 +6,11 @@ import axios from 'axios'
 export const useMovieStore = defineStore('movieStore', () => {
   const token = ref(null)
   const router = useRouter()
-  const BASE_URL = 'http://172.29.114.46:8000'
+  const BASE_URL = 'http://172.30.1.37:8000'
   const API_KEY = ref()
   const movies = ref([])
+
+  
 
   const getMovies = function () {
     axios({

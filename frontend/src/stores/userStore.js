@@ -6,7 +6,7 @@ import axios from 'axios'
 export const useUserStore = defineStore('userStore', () => {
   const token = ref(null)
   const router = useRouter()
-  const BASE_URL = 'http://172.29.114.46:8000'
+  const BASE_URL = 'http://172.30.1.37:8000'
 
   // 로그인 확인
   const isLogIn = computed(() => {
@@ -68,11 +68,13 @@ export const useUserStore = defineStore('userStore', () => {
       headers: { Authorization: `Token ${token.value}`}
     })
     .then((res) => {
+      console.log('로그아웃 성공')
       console.log(res.data)
       token.value = null // token 초기화
       router.push({ name: 'login' })
     })
     .catch((err) => {
+      console.log('로그아웃 실패')
       console.log(err)
     })
   }
