@@ -1,10 +1,7 @@
 from django.shortcuts import render
 import requests
 import json
-import os
 from django.conf import settings
-import aiohttp
-import asyncio
 
 TMDB_API_KEY = settings.TMDB_API_KEY
 
@@ -35,7 +32,7 @@ def get_movie_detail(movie_id):
 def get_movie_datas():
     total_data = []
     a = 0
-    for i in range(1, 501):
+    for i in range(1, 401):
         a += 1
         print(a)
         request_url = f'https://api.themoviedb.org/3/discover/movie?api_key={TMDB_API_KEY}&language=ko-KR&sort_by=popularity.desc&include_adult=false&include_video=false&page={i}&with_watch_providers=providers%3A8&with_watch_monetization_types=flatrate'
@@ -70,4 +67,3 @@ def get_movie_datas():
 
 def get_movie(request):
     get_movie_datas()
-    return HttpResponse("Movie data has been successfully updated.")
