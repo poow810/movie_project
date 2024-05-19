@@ -1,4 +1,7 @@
 from django.db import models
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 # Create your models here.
 class Genre(models.Model):
@@ -17,7 +20,7 @@ class Movie(models.Model):
     vote_avg = models.DecimalField(max_digits=10, decimal_places=1)
     popularity = models.DecimalField(max_digits=10, decimal_places=1)
     genres = models.ManyToManyField(Genre, related_name='movies')
-
+    likes = models.ManyToManyField(User, related_name='liked_movies')
 
 class Person(models.Model):
     TYPE_CHOICES = [

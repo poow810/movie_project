@@ -3,8 +3,17 @@ from django.contrib.auth import get_user_model
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
 
+from community.models import Comment, Post
+from movie.models import Movie
+
 
 User = get_user_model()
+
+
+class UserDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -50,3 +59,28 @@ class FindUserNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username',)
+
+# 프로필 페이지에서 작성한 게시글 조회
+class UserPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['id', 'title', 'content', 'created_at', 'updated_at', 'category', 'like_count']
+
+# 프로필 페이지에서 좋아요 누른 영화 조회
+class UserMovieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ['movie_id', 'title', 'poster_path', 'overview', 'release_date', 'vote_avg', 'popularity', 'genres']
+
+    
+# 프로필 페이지에서 작성한 댓글 조회
+class UserCommentSerializer(serializers.ModelSerializer):
+    class PostSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Post
+            fields = '__all__'
+    
+    post = PostSerializer(read_only=True)
+    class Meta:
+        model = Comment
+        fields = '__all__'
