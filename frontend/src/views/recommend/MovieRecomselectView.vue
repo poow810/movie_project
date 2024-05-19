@@ -9,11 +9,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRecomStore } from '@/stores/recomStore'
-import { useRouter } from 'vue-router';
 const store = useRecomStore()
-const router = useRouter()
 
 // 선택된 장르들을 관리할 ref
 const select = ref([])
@@ -55,12 +53,11 @@ const toggleSelect = (genreId) => {
 const submitSelect = () => {
   if (select.value.length >= 2) {
     store.getGenreToServer(select.value)
-    // 다음 뷰로 넘어가는 코드 작성
-    router.push({ name: 'recommend' })
   } else {
     alert("두 개 이상의 장르를 선택해주세요!")
   }
 }
+
 
 </script>
 

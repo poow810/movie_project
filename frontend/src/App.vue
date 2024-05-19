@@ -6,6 +6,10 @@ import { useRecomStore } from '@/stores/recomStore'
 const userStore = useUserStore()
 const recomStore = useRecomStore()
 
+const setRecom = computed(() => {
+  return recomStore.userSetGenre
+})
+
 const logOut = function () { 
   userStore.logOut()
 }
@@ -22,9 +26,9 @@ const isLogIn = computed(() => {
       <nav v-if="isLogIn">
         <RouterLink to="/">Home</RouterLink> |
         <RouterLink :to="{ name: 'actor' }">배우</RouterLink> |
-        <RouterLink v-if="recomStore.userSetGenre" :to="{ name: 'genreselect' }">영화추천</RouterLink> |
+        <RouterLink :to="{ name: 'community' }">커뮤니티</RouterLink> |
         <!-- recomStore.userSetGenre가 존재하면 'genreselect'로, 그렇지 않으면 'recommend'로 라우팅 -->
-        <RouterLink :to="recomStore.userSetGenre ? { name: 'genreselect' } : { name: 'recommend' }">영화추천</RouterLink> |
+        <RouterLink :to="setRecom ? { name: 'genreselect' } : { name: 'recommend' }">영화추천</RouterLink> |
         <button @click="logOut">로그아웃</button>
       </nav>
       <nav v-else>

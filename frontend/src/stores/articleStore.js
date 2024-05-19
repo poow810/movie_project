@@ -6,7 +6,6 @@ import axios from 'axios'
 
 export const useArticleStore = defineStore('articleStore', () => {
   const store = useUserStore()
-  const token = store.token
   const router = useRouter()
   const articles = ref([])
   const SERVER_URL = 'http://43.202.204.222'
@@ -17,7 +16,7 @@ export const useArticleStore = defineStore('articleStore', () => {
       method: 'get',
       url: `${LOCAL_URL}/community/`,
       headers: {
-        Authorization: `Token ${token}`
+        Authorization: `Token ${store.token}`
       }
     })
     .then((res) => {
@@ -34,7 +33,6 @@ export const useArticleStore = defineStore('articleStore', () => {
     const title = article.title
     const content = article.content
     const category = article.category
-    console.log(category)
     axios({
       method: 'post',
       url: `${LOCAL_URL}/community/create/`,
@@ -42,17 +40,16 @@ export const useArticleStore = defineStore('articleStore', () => {
         title, content, category
       },
       headers: {
-        Authorization: `Token ${token}`
+        Authorization: `Token ${store.token}`
       }
     })
     .then((res) => {
       router.push({ name: 'community' })
     })
     .catch((err) => {
-      console.log('err')
       console.log(err)
     })
   }
   
-  return  {SERVER_URL, LOCAL_URL, articles, token, getArticles, createArticle}
+  return  {SERVER_URL, LOCAL_URL, articles, getArticles, createArticle}
 }, {persist: true})
