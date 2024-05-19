@@ -50,6 +50,31 @@ export const useArticleStore = defineStore('articleStore', () => {
       console.log(err)
     })
   }
+
+  // 좋아요
+  const favoriteArticle = async (articleId) => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `${LOCAL_URL}/community/detail/${articleId}/`, // URL 수정
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
+      });
   
-  return  {SERVER_URL, LOCAL_URL, articles, getArticles, createArticle}
+      // 성공적으로 응답을 받은 후, 좋아요 수 업데이트
+      articles.value = articles.value.map((article) => {
+        if (article.id === articleId) {
+          // 서버로부터 받은 좋아요 수로 업데이트
+          return { ...article, like_count: response.data.like_count };
+        } else {
+          return article;
+        }
+      });
+    } catch (err) {
+      console.log('좋아요 기능 처리 중 에러', err);
+    }
+  };
+
+  return  {SERVER_URL, LOCAL_URL, articles, store, getArticles, createArticle, favoriteArticle}
 }, {persist: true})

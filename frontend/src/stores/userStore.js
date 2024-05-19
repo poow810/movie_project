@@ -32,7 +32,6 @@ export const useUserStore = defineStore('userStore', () => {
       }
     })
     .then((res) => {
-      console.log(res.data.key)
       token.value = res.data.key
       router.push({ name: 'home' })
     })
