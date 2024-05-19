@@ -11,7 +11,7 @@ export const useRecomStore = defineStore('recomStore', () => {
   const LOCAL_URL = 'http://192.168.0.13:8000'
 
   // 응답데이터 저장
-  const userSetGenre = ref([])
+  const userSetGenre = ref(null)
 
   const getGenreToServer = async (select) => {
     axios({
@@ -34,8 +34,17 @@ export const useRecomStore = defineStore('recomStore', () => {
     })
   }
   
+  const isSelect = computed(() => {
+    if (userSetGenre.value === null) {
+      return false
+    } else {
+      return true
+    }
+  })
   
-  
-  return { store, SERVER_URL, LOCAL_URL, userSetGenre, getGenreToServer, 
-   }
-}, {persist: true})
+  const resetUserSetGenre = () => {
+    userSetGenre.value = null;
+  };
+
+  return { store, SERVER_URL, LOCAL_URL, userSetGenre, getGenreToServer, isSelect, resetUserSetGenre}
+}, {persist: { key: 'recomStore'}})

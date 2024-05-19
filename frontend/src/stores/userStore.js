@@ -20,30 +20,24 @@ export const useUserStore = defineStore('userStore', () => {
   })
   
   // 로그인
-  const logIn = function (payload) {
+  const logIn = async function (payload) { // async 키워드 추가
     const { username, password } = payload
-    axios({ 
-      method: 'post',
-      url: `${LOCAL_URL}/accounts/login/`,
-      data: {
-        username, password
-      },
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((res) => {
+    try {
+      const res = await axios({
+        method: 'post',
+        url: `${LOCAL_URL}/accounts/login/`,
+        data: { username, password },
+        headers: { 'Content-Type': 'application/json' }
+      })
+      
       token.value = res.data.key
-      checkUser(token.value)
-      console.log(res.data.key)
-      token.value = res.data.key
-      checkUser(token.value)
-      router.push({ name: 'home' })
-    })
-    .catch((err) => {
+      await checkUser(token.value) // await를 사용하여 비동기 처리 기다림
+      router.push({ name: 'home' }) // userId가 업데이트된 후에 홈으로 이동
+    } catch (err) {
       console.log(err)
-    })
+    }
   }
+
   // 로그인 후 사용자 확인 및 정의
   const checkUser = (token) => {
     axios({
@@ -63,6 +57,7 @@ export const useUserStore = defineStore('userStore', () => {
 
   // 로그아웃
   const logOut = function () {
+    console.log(token.value)
     axios({
       method: 'post',
       url: `${LOCAL_URL}/accounts/logout/`,

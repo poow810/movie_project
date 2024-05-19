@@ -16,41 +16,63 @@ export const useProfileStore = defineStore('profileStore', () => {
     const nickName = ref(null)
 
 
-    const getProfile = (id) => {
-        axios({
-            method: 'GET',
-            url: `${LOCAL_URL}/profile/${id}`,
-            headers: {
-                'Authorization': `Token ${store.token}`
-            }
-        })
-        .then(res => {
-            console.log(res.data)
-            followers_count.value = res.data.followers_count
-            followings_count.value = res.data.followings_count
-            userImage.value = res.data.user_image
-            userName.value = res.data.username
-            nickName.value = res.data.nickname
-            console.log(followers_count.value)
+    const getProfile = async (id) => {
+        try {
+            const res = await axios({
+                method: 'GET',
+                url: `${LOCAL_URL}/profile/${id}`,
+                headers: {
+                    'Authorization': `Token ${store.token}`
+                }
+            });
 
-        })
-        .catch(err => { console.error(err) })
+            followers_count.value = res.data.followers_count;
+            followings_count.value = res.data.followings_count;
+            userImage.value = res.data.user_image;
+            userName.value = res.data.username;
+            nickName.value = res.data.nickname;
+        } catch (err) {
+            console.error(err);
+        }
     }
 
-    const userFollowing = function(id) {
-        axios({
-            method: 'POST', 
-            url: `${LOCAL_URL}/profile/follow/${id}/`,
-            headers: {
-                'Authorization': `Token ${store.token}`
-            }
-        })
-        .then(res => {
-            followers_count.value = res.data.followers_count
-            followings_count.value = res.data.followings_count
-        })
-        .catch(err => { console.error(err) })
+    const userFollowing = async (id) => {
+        try {
+            const res = await axios({
+                method: 'POST',
+                url: `${LOCAL_URL}/profile/follow/${id}/`,
+                headers: {
+                    'Authorization': `Token ${store.token}`
+                }
+            });
+
+            followers_count.value = res.data.followers_count;
+            followings_count.value = res.data.followings_count;
+        } catch (err) {
+            console.error(err);
+        }
     }
-    
-    return  {SERVER_URL, LOCAL_URL, followers_count, followings_count, userImage, userName, nickName, getProfile, userFollowing}
-}, {persist: true})
+
+    const changeNickname = async (id, nickname) => {
+        try {
+            const res = await axios({
+                method: 'PUT',
+                url: `${LOCAL_URL}/profile/change/${id}/`,
+                headers: {
+                    'Authorization': `Token ${store.token}`
+                },
+                data: {
+                    'nickname': nickname
+                }
+            });
+
+            nickName.value = res.data.nickname;
+            // 닉네임 변경 후 프로필 다시 불러오기
+            await getProfile(id);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    return { SERVER_URL, LOCAL_URL, followers_count, followings_count, userImage, userName, nickName, getProfile, userFollowing, changeNickname }
+}, { persist: true })
