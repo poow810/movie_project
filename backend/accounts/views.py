@@ -33,6 +33,19 @@ def profile(request, user_id):
         return Response(status=status.HTTP_200_OK)
 
 
+@api_view(['PUT'])
+@login_required
+def changeNickname(request, user_id):
+    if request.method == 'PUT':
+        person = get_object_or_404(User, pk=user_id)
+        print(request.data)
+        person.nickname = request.data['nickname']
+        person.save()
+        context = {
+            'nickname': person.nickname
+        }
+        return Response(context)
+
 @api_view(['POST'])
 @login_required
 def follow(request, user_pk):

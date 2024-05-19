@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="user">
         <div>
           <img :src="selectedImage" @click="showModal = true" alt="Selected" style="cursor: pointer;">
           <div v-if="showModal" @click.self="showModal = false" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5);">
@@ -18,9 +18,16 @@
             <span>팔로잉 수: {{ user.followings }}명</span>
             <hr>
             <span>{{ user.username }}</span>
-            <span>{{ user.nickname }}</span>
-            <div v-if="user_id==userId"><button>닉네임 변경</button></div>
-            <div v-else><button @click="following(user_id)">팔로잉</button></div>
+            <br>
+            <span>{{ profileStore.nickName }}</span>
+            
+            <!-- user_id는 프로필 주인, userId는 현재 로그인한 사용자 -->
+            <div v-if="user_id==userId">
+                <input type="text" v-model="newNickName">
+                <button @click="changeNickname(userId)">닉네임 변경</button>
+            </div>
+            <div v-else>
+                <button @click="following(user_id)">팔로잉</button></div>
             <hr>
             <span>작성한 리뷰 수: </span>
         </div>
@@ -44,6 +51,7 @@ defineProps({
     user:Object,
 })
 
+
 // 이미지 배열
 const images = [noimage, image1, image2, image3, image4, image5]
 
@@ -55,6 +63,13 @@ const userId = userStore.userId
 // 유저 팔로잉
 const following = (user_id) => {
     profileStore.userFollowing(user_id)
+}
+
+// 닉네임 변경
+const newNickName = ref(null)
+const changeNickname = (user_id) => {
+    profileStore.changeNickname(user_id, newNickName.value)
+    newNickName.value = null
 }
 
 // 선택된 이미지와 모달 상태

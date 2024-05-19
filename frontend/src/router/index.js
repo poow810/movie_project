@@ -7,8 +7,7 @@ import CommuArticleCreateView from '@/views/community/CommuArticleCreateView.vue
 import LogOug from '@/components/accounts/LogOut.vue'
 import PasswordChange from '@/components/accounts/PasswordChange.vue'
 import ActorView from '@/views/actors/ActorView.vue'
-import MovieRecomselectView from '@/views/recommend/MovieRecomselectView.vue'
-import MovieRecomView from '@/views/recommend/MovieRecomView.vue'
+import RecommendView from '@/views/recommend/RecommendView.vue'
 import CommuArticleDetail from '@/views/community/CommuArticleDetail.vue'
 import ProfileView from '@/views/profile/ProfileView.vue'
 
@@ -47,16 +46,10 @@ const router = createRouter({
 
     // RECOMMEND
     {
-      path: '/movies/genreselect',
-      name: 'genreselect',
-      component: MovieRecomselectView
-    },
-    {
-      path: '/movie/recommend',
+      path: '/movies/recommend',
       name: 'recommend',
-      component: MovieRecomView
+      component: RecommendView
     },
-
 
     // ACCOUNT
     {
