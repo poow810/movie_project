@@ -12,11 +12,11 @@ export const useMovieStore = defineStore('movieStore', () => {
   const SERVER_URL = 'http://43.202.204.222'
   const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY
+
   const nowPlayingMovies = ref([]) // 상영중 영화
   const ratedMovies = ref([]) // 평점순 영화
   const genreMovies = ref([]) // 장르별 영화
   
-
   // 평점 높은순
   const getRatedMovies = async () => {
     axios({

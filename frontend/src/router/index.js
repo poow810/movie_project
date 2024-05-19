@@ -8,11 +8,13 @@ import LogOug from '@/components/accounts/LogOut.vue'
 import PasswordChange from '@/components/accounts/PasswordChange.vue'
 import ActorView from '@/views/actors/ActorView.vue'
 import MovieRecomselectView from '@/views/recommend/MovieRecomselectView.vue'
-import MovieRecommendView from '@/views/recommend/MovieRecommendView.vue'
+import MovieRecomView from '@/views/recommend/MovieRecomView.vue'
+import CommuArticleDetail from '@/views/community/CommuArticleDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // ACCOUNT
     {
       path: '/',
       name: 'home',
@@ -61,7 +63,12 @@ const router = createRouter({
     {
       path: '/movie/recommend',
       name: 'recommend',
-      component: MovieRecommendView
+      component: MovieRecomView
+    },
+    {
+      path: '/community/:id',
+      name: 'articleDetail',
+      component: CommuArticleDetail
     }
   ]
 })

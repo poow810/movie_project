@@ -6,7 +6,6 @@ import axios from 'axios'
 
 export const useRecomStore = defineStore('recomStore', () => {
   const store = useUserStore()
-  const token =  store.token
   const router = useRouter()
   const SERVER_URL = 'http://43.202.204.222'
   const LOCAL_URL = 'http://192.168.0.13:8000'
@@ -19,7 +18,7 @@ export const useRecomStore = defineStore('recomStore', () => {
       method: 'get',
       url: `${LOCAL_URL}/movie/genreSelect/`,
       headers: {
-        Authorization: `Token ${token}`
+        Authorization: `Token ${store.token}`
       },
       params: {
         genre: select
@@ -28,7 +27,7 @@ export const useRecomStore = defineStore('recomStore', () => {
     .then(res => {
       console.log('성공:', res.data)
       userSetGenre.value = res.data
-      console.log(userSetGenre.value)
+      router.push({ name: 'recommend' })
     })
     .catch(err => {
       console.error('영화 데이터 보내기 실패:', err)
@@ -37,6 +36,6 @@ export const useRecomStore = defineStore('recomStore', () => {
   
   
   
-  return { store, token, SERVER_URL, LOCAL_URL, userSetGenre, getGenreToServer, 
+  return { store, SERVER_URL, LOCAL_URL, userSetGenre, getGenreToServer, 
    }
 }, {persist: true})

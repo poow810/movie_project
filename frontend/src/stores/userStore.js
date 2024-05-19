@@ -17,31 +17,11 @@ export const useUserStore = defineStore('userStore', () => {
       return true
     }
   })
-
-  // 회원가입
-  const signUp = function (payload) {
-    const { username, nickname, email, password1, password2 } = payload
-    axios({
-      method: 'post',
-      url: `${LOCAL_URL}/accounts/signup/`,
-      data: {
-        username, nickname, email, password1, password2
-      }
-    })
-    .then((res) => {
-      console.log(res)
-      router.push({ name: 'home' })
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
-
-
+  
   // 로그인
   const logIn = function (payload) {
     const { username, password } = payload
-    axios({
+    axios({ 
       method: 'post',
       url: `${LOCAL_URL}/accounts/login/`,
       data: {
@@ -60,7 +40,7 @@ export const useUserStore = defineStore('userStore', () => {
       console.log(err)
     })
   }
-
+  
   // 로그아웃
   const logOut = function () {
     axios({
@@ -76,6 +56,26 @@ export const useUserStore = defineStore('userStore', () => {
     })
     .catch((err) => {
       console.log('로그아웃 실패')
+      console.log(err)
+    })
+  }
+  
+  // 회원가입
+  const signUp = function (payload) {
+    const { username, nickname, email, password1, password2 } = payload
+    axios({
+      method: 'post',
+      url: `${LOCAL_URL}/accounts/signup/`,
+      data: {
+        username, nickname, email, password1, password2
+      }
+    })
+    .then((res) => {
+      console.log(res)
+      const password = password1
+      logIn({ username, password })
+    })
+    .catch((err) => {
       console.log(err)
     })
   }

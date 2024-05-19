@@ -3,9 +3,7 @@
   <div>
     <button @click="router.push({name: 'create'})">새 글작성</button>
   </div>
-  <div>
-    <CommunityArticleList />    
-  </div>
+  <CommunityArticleList />    
 </template>
 
 <script setup>
