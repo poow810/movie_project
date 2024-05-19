@@ -10,6 +10,7 @@ import ActorView from '@/views/actors/ActorView.vue'
 import MovieRecomselectView from '@/views/recommend/MovieRecomselectView.vue'
 import MovieRecomView from '@/views/recommend/MovieRecomView.vue'
 import CommuArticleDetail from '@/views/community/CommuArticleDetail.vue'
+import ProfileView from '@/views/profile/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -78,6 +79,11 @@ const router = createRouter({
       name: 'passwordchange',
       component: PasswordChange
     },
+    {
+      path: '/profile/:id',
+      name: 'profile',
+      component: ProfileView
+    }
   ]
 })
 
