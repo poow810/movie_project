@@ -23,13 +23,23 @@ def post(request):
         return JsonResponse(context)
     
     elif request.method == 'POST':
-        print(request.data)
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
+@api_view(['GET'])
+@login_required
+def detail(request, post_id):
+    if request.method == 'GET':
+        post = get_object_or_404(Post, pk=post_id)
+        post.click_count += 1
+        post.save()
+        serializer = PostSerializer(post, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 @api_view(['PUT', 'DELETE'])
 @login_required
