@@ -8,6 +8,9 @@ import LogOug from '@/components/accounts/LogOut.vue'
 import PasswordChange from '@/components/accounts/PasswordChange.vue'
 import ActorView from '@/views/actors/ActorView.vue'
 import MovieRecomselectView from '@/views/recommend/MovieRecomselectView.vue'
+import MovieRecomView from '@/views/recommend/MovieRecomView.vue'
+import CommuArticleDetail from '@/views/community/CommuArticleDetail.vue'
+import ProfileView from '@/views/profile/ProfileView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,16 +20,15 @@ const router = createRouter({
       name: 'home',
       component: HomeView
     },
+
+    // ACTOR
     {
-      path: '/signup',
-      name: 'signup',
-      component: SignUpView
+      path: '/actors',
+      name: 'actor',
+      component: ActorView
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: LogInView
-    },
+
+    // COMMUNITY
     {
       path: '/community',
       name: 'community',
@@ -36,6 +38,36 @@ const router = createRouter({
       path: '/community/create',
       name: 'create',
       component: CommuArticleCreateView
+    },
+    {
+      path: '/community/:id',
+      name: 'articleDetail',
+      component: CommuArticleDetail
+    },
+
+    // RECOMMEND
+    {
+      path: '/movies/genreselect',
+      name: 'genreselect',
+      component: MovieRecomselectView
+    },
+    {
+      path: '/movie/recommend',
+      name: 'recommend',
+      component: MovieRecomView
+    },
+
+
+    // ACCOUNT
+    {
+      path: '/signup',
+      name: 'signup',
+      component: SignUpView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LogInView
     },
     {
       path: '/accounts/logout',
@@ -48,14 +80,9 @@ const router = createRouter({
       component: PasswordChange
     },
     {
-      path: '/actors',
-      name: 'actor',
-      component: ActorView
-    },
-    {
-      path: '/movies/recommend',
-      name: 'recommend',
-      component: MovieRecomselectView
+      path: '/profile/:id',
+      name: 'profile',
+      component: ProfileView
     }
   ]
 })

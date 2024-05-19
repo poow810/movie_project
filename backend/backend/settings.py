@@ -28,11 +28,7 @@ SECRET_KEY = 'django-insecure-(e(msgo*@flawm!5oy73aokxc@wn%6k+#=vs&vlk-!21%6j0sv
 DEBUG = True
 
 ALLOWED_HOSTS = [
-<<<<<<< Updated upstream
-    "192.168.0.24",
-=======
     '192.168.0.13',
->>>>>>> Stashed changes
     ".ap-northeast-2.compute.amazonaws.com",
     "43.202.204.222"
 ]
