@@ -9,14 +9,14 @@ export const useMovieStore = defineStore('movieStore', () => {
   const token =  store.token
   const router = useRouter()
   const LOCAL_URL = 'http://192.168.0.13:8000'
-  const BASE_URL = 'http://43.202.204.222'
+  const SERVER_URL = 'http://43.202.204.222'
   const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY
+
   const nowPlayingMovies = ref([]) // 상영중 영화
   const ratedMovies = ref([]) // 평점순 영화
   const genreMovies = ref([]) // 장르별 영화
   
-
   // 평점 높은순
   const getRatedMovies = async () => {
     axios({
@@ -73,6 +73,6 @@ export const useMovieStore = defineStore('movieStore', () => {
     })
   }
   
-  return { token, BASE_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies,
+  return { token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies,
     getRatedMovies, getNowPlayingMovies, getGenreList }
 }, {persist: true})

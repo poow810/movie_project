@@ -35,13 +35,15 @@ export const useUserStore = defineStore('userStore', () => {
     .then((res) => {
       token.value = res.data.key
       checkUser(token.value)
+      console.log(res.data.key)
+      token.value = res.data.key
+      checkUser(token.value)
       router.push({ name: 'home' })
     })
     .catch((err) => {
       console.log(err)
     })
   }
-  
   // 로그인 후 사용자 확인 및 정의
   const checkUser = (token) => {
     axios({
@@ -54,6 +56,7 @@ export const useUserStore = defineStore('userStore', () => {
     .then(res => {
       console.log(res.data)
       userId.value = res.data.pk
+      userName.value = res.data.username
     })
     .catch(err => { console.log(err) })
   }
@@ -94,6 +97,7 @@ export const useUserStore = defineStore('userStore', () => {
       console.log(err)
     })
   }
+
 
   return { userId, token, SERVER_URL, LOCAL_URL, isLogIn,
   signUp, logIn, logOut, checkUser }

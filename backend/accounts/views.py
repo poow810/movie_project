@@ -18,7 +18,7 @@ def findId(request, email):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(['GET','PUT'])
+@api_view(['GET', 'PUT'])
 @login_required
 def profile(request, user_id):
     if request.method == 'GET':
@@ -50,6 +50,7 @@ def follow(request, user_pk):
             'following_count': person.followings.count(),
         }
         return Response(context)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
     
 
 @api_view(['GET'])

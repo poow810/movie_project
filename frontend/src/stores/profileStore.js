@@ -12,6 +12,9 @@ export const useProfileStore = defineStore('profileStore', () => {
     const followers_count = ref(null)
     const followings_count = ref(null)
     const userImage = ref(null)
+    const userName = ref(null)
+    const nickName = ref(null)
+
 
     const getProfile = (id) => {
         axios({
@@ -26,10 +29,28 @@ export const useProfileStore = defineStore('profileStore', () => {
             followers_count.value = res.data.followers_count
             followings_count.value = res.data.followings_count
             userImage.value = res.data.user_image
+            userName.value = res.data.username
+            nickName.value = res.data.nickname
             console.log(followers_count.value)
+
+        })
+        .catch(err => { console.error(err) })
+    }
+
+    const userFollowing = function(id) {
+        axios({
+            method: 'POST', 
+            url: `${LOCAL_URL}/profile/follow/${id}/`,
+            headers: {
+                'Authorization': `Token ${store.token}`
+            }
+        })
+        .then(res => {
+            followers_count.value = res.data.followers_count
+            followings_count.value = res.data.followings_count
         })
         .catch(err => { console.error(err) })
     }
     
-    return  {SERVER_URL, LOCAL_URL, followers_count, followings_count, userImage, getProfile}
+    return  {SERVER_URL, LOCAL_URL, followers_count, followings_count, userImage, userName, nickName, getProfile, userFollowing}
 }, {persist: true})

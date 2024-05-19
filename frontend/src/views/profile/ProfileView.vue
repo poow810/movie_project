@@ -1,8 +1,7 @@
 <template>
     <div>
-        <ProfileDetailView 
-        :followers="store.followers_count"
-        :followings="store.followings_count"
+        <ProfileDetailView
+        :user="user"
         :user_id="user_id"
         />
     </div>
@@ -11,14 +10,24 @@
 <script setup>
 import ProfileDetailView from '@/components/profile/ProfileDetailView.vue'
 import { onMounted } from 'vue'
-import { useProfileStore } from '@/stores/profileStore.js'
 import { useRoute } from 'vue-router'
+import { useProfileStore } from '@/stores/profileStore.js'
 
 const route = useRoute()
 const user_id = route.params.id
-const store = useProfileStore()
+const profileStore = useProfileStore()
+const username = profileStore.userName
+const nickname = profileStore.nickname
+const followers = profileStore.followers_count
+const followings = profileStore.followings_count
+
+const user = { username, nickname, followers, followings}
 
 onMounted(() => {
-    store.getProfile(user_id)
+    profileStore.getProfile(user_id)
 })
 </script>
+
+<style scoped>
+
+</style>

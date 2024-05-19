@@ -24,7 +24,6 @@ class UserDetailsSerializer(serializers.ModelSerializer):
     def get_followers_count(self, obj):
         return obj.followers.count()
 
-
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField(
       required=False,

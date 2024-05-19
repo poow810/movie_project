@@ -9,9 +9,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRecomStore } from '@/stores/recomStore'
-
 const store = useRecomStore()
 
 // 선택된 장르들을 관리할 ref
@@ -53,12 +52,12 @@ const toggleSelect = (genreId) => {
 // 선택된 장르 서버로 전송
 const submitSelect = () => {
   if (select.value.length >= 2) {
-  store.getGenreToServer(select.value)
-  // 다음 뷰로 넘어가는 코드 작성
+    store.getGenreToServer(select.value)
   } else {
     alert("두 개 이상의 장르를 선택해주세요!")
   }
 }
+
 
 </script>
 
@@ -77,6 +76,6 @@ const submitSelect = () => {
   object-fit: cover;
 }
 .genre-image.selected {
-  border: 2px solid #42b983; /* 선택된 항목 표시 */
+  border: 2px solid orange; /* 선택된 항목 표시 */
 }
 </style>

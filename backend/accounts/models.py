@@ -10,7 +10,6 @@ class User(AbstractUser):
     user_image = models.IntegerField(default=0)
 
 
-
 class CustomAccountAdapter(DefaultAccountAdapter):
     def save_user(self, request, user, form, commit=True):
         from allauth.account.utils import user_email, user_field, user_username

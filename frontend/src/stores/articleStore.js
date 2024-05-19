@@ -6,10 +6,9 @@ import axios from 'axios'
 
 export const useArticleStore = defineStore('articleStore', () => {
   const store = useUserStore()
-  const token = store.token
   const router = useRouter()
   const articles = ref([])
-  const BASE_URL = 'http://43.202.204.222'
+  const SERVER_URL = 'http://43.202.204.222'
   const LOCAL_URL = 'http://192.168.0.13:8000'
 
   const getArticles = function () {
@@ -17,7 +16,7 @@ export const useArticleStore = defineStore('articleStore', () => {
       method: 'get',
       url: `${LOCAL_URL}/community/`,
       headers: {
-        Authorization: `Token ${token}`
+        Authorization: `Token ${store.token}`
       }
     })
     .then((res) => {
@@ -34,7 +33,6 @@ export const useArticleStore = defineStore('articleStore', () => {
     const title = article.title
     const content = article.content
     const category = article.category
-    console.log(category)
     axios({
       method: 'post',
       url: `${LOCAL_URL}/community/create/`,
@@ -42,17 +40,42 @@ export const useArticleStore = defineStore('articleStore', () => {
         title, content, category
       },
       headers: {
-        Authorization: `Token ${token}`
+        Authorization: `Token ${store.token}`
       }
     })
     .then((res) => {
+      console.log(res.data)
       router.push({ name: 'community' })
     })
     .catch((err) => {
-      console.log('err')
       console.log(err)
     })
   }
+
+  // 좋아요
+  const favoriteArticle = async (articleId) => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `${LOCAL_URL}/community/detail/${articleId}/`, // URL 수정
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
+      });
   
-  return  {BASE_URL, LOCAL_URL, articles, token, getArticles, createArticle}
+      // 성공적으로 응답을 받은 후, 좋아요 수 업데이트
+      articles.value = articles.value.map((article) => {
+        if (article.id === articleId) {
+          // 서버로부터 받은 좋아요 수로 업데이트
+          return { ...article, like_count: response.data.like_count };
+        } else {
+          return article;
+        }
+      });
+    } catch (err) {
+      console.log('좋아요 기능 처리 중 에러', err);
+    }
+  };
+
+  return  {SERVER_URL, LOCAL_URL, articles, store, getArticles, createArticle, favoriteArticle}
 }, {persist: true})

@@ -37,7 +37,7 @@ def detail(request, post_id):
         post = get_object_or_404(Post, pk=post_id)
         post.click_count += 1
         post.save()
-        serializer = PostSerializer(post)
+        serializer = PostSerializer(post, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
