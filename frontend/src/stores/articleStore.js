@@ -44,6 +44,7 @@ export const useArticleStore = defineStore('articleStore', () => {
       }
     })
     .then((res) => {
+      console.log(res.data)
       router.push({ name: 'community' })
     })
     .catch((err) => {
