@@ -67,6 +67,7 @@ export const useUserStore = defineStore('userStore', () => {
     .then(res => {
       console.log(res.data)
       userId.value = res.data.pk
+      userName.value = res.data.username
     })
     .catch(err => { console.log(err) })
   }

@@ -43,6 +43,7 @@ def follow(request, user_pk):
             'following_count': person.followings.count(),
         }
         return Response(context)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
     
 
 @api_view(['GET'])
