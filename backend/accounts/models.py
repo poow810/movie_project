@@ -7,6 +7,7 @@ class User(AbstractUser):
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
     nickname = models.CharField(max_length=150)
     is_best_user = models.BooleanField(default=False)
+    user_image = models.IntegerField(default=0)
 
 
 class CustomAccountAdapter(DefaultAccountAdapter):

@@ -18,12 +18,19 @@ def findId(request, email):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT'])
 @login_required
 def profile(request, user_id):
-    person = get_object_or_404(User, pk=user_id)
-    serializer = UserDetailsSerializer(person)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    if request.method == 'GET':
+        person = get_object_or_404(User, pk=user_id)
+        serializer = UserDetailsSerializer(person)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'PUT':
+        person = get_object_or_404(User, pk=user_id)
+        user_img = request.data['user_image']
+        person.user_image = user_img
+        person.save()
+        return Response(status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])

@@ -11,10 +11,18 @@ User = get_user_model()
 
 
 class UserDetailsSerializer(serializers.ModelSerializer):
+    followings_count = serializers.SerializerMethodField()
+    followers_count = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = '__all__'
+        fields = '__all__'  # 필요한 경우 '__all__' 대신 실제 필드 목록을 명시하고 'followings_count', 'followers_count'를 추가
 
+    def get_followings_count(self, obj):
+        return obj.followings.count()
+
+    def get_followers_count(self, obj):
+        return obj.followers.count()
 
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField(

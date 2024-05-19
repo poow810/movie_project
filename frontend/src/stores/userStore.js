@@ -33,15 +33,9 @@ export const useUserStore = defineStore('userStore', () => {
       }
     })
     .then((res) => {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
->>>>>>> feature_jw
       token.value = res.data.key
       checkUser(token.value)
       console.log(res.data.key)
-=======
->>>>>>> Stashed changes
       token.value = res.data.key
       checkUser(token.value)
       router.push({ name: 'home' })
@@ -50,11 +44,6 @@ export const useUserStore = defineStore('userStore', () => {
       console.log(err)
     })
   }
-<<<<<<< Updated upstream
-
-=======
-  
->>>>>>> Stashed changes
   // 로그인 후 사용자 확인 및 정의
   const checkUser = (token) => {
     axios({
@@ -109,14 +98,7 @@ export const useUserStore = defineStore('userStore', () => {
     })
   }
 
-<<<<<<< Updated upstream
 
   return { userId, token, SERVER_URL, LOCAL_URL, isLogIn,
   signUp, logIn, logOut, checkUser }
-
 }, {persist: true})
-=======
-  return { userId, token, SERVER_URL, LOCAL_URL, isLogIn,
-  signUp, logIn, logOut, checkUser }
-}, {persist: true})
->>>>>>> Stashed changes

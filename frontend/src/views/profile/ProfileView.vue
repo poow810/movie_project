@@ -1,17 +1,10 @@
 <template>
-<<<<<<< Updated upstream
     <div>
         <ProfileDetailView
         :user="user"
         :user_id="user_id"
         />
     </div>
-</template>
-<script setup></script>
-=======
-  <div>
-
-  </div>
 </template>
 
 <script setup>
@@ -38,4 +31,3 @@ onMounted(() => {
 <style scoped>
 
 </style>
->>>>>>> Stashed changes
