@@ -18,7 +18,7 @@ const route = useRoute()
 onMounted(() => {
   axios({
     method: 'get',
-    url: `${articleStore.}`
+    url: `${articleStore.detail}`
   })
   .then()
   .catch()

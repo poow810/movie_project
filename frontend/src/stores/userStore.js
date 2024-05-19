@@ -58,22 +58,6 @@ export const useUserStore = defineStore('userStore', () => {
     .catch(err => { console.log(err) })
   }
 
-  // 로그인 후 사용자 확인 및 정의
-  const checkUser = (token) => {
-    axios({
-      method: 'GET',
-      url: `${LOCAL_URL}/accounts/user/`,
-      headers: {
-        'Authorization': `Token ${token}`
-      }
-    })
-    .then(res => {
-      console.log(res.data)
-      userId.value = res.data.pk
-    })
-    .catch(err => { console.log(err) })
-  }
-
   // 로그아웃
   const logOut = function () {
     axios({
