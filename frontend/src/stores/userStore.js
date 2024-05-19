@@ -33,7 +33,10 @@ export const useUserStore = defineStore('userStore', () => {
       }
     })
     .then((res) => {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
+=======
+>>>>>>> feature_jw
       token.value = res.data.key
       checkUser(token.value)
       console.log(res.data.key)
