@@ -16,8 +16,10 @@ import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
+env = environ.Env(DEBUG=(bool, True))
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR, '.env')
+)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -28,6 +30,7 @@ SECRET_KEY = 'django-insecure-(e(msgo*@flawm!5oy73aokxc@wn%6k+#=vs&vlk-!21%6j0sv
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    "192.168.0.24",
     ".ap-northeast-2.compute.amazonaws.com",
     "43.202.204.222"
 ]
@@ -125,8 +128,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': env('DB_NAME'), # RDS에서 생성해준 초기 데이터베이스 이름
+        'USER': env('DB_USER'), # RDS에서 생성해준 마스터 사용자 이름
+        'PASSWORD': env('DB_PASSWORD'), # RDS에서 생성해준 마스터 암호
+        'HOST': env('DB_HOST'), # 생성된 RDS의 엔드 포인트
+        'PORT': env('DB_PORT'), # 포트번호(3306)
+        'OPTIONS':{
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
@@ -182,12 +192,6 @@ AUTH_USER_MODEL = 'accounts.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
-env = environ.Env(DEBUG=(bool, True))
-
-environ.Env.read_env(
-    env_file=os.path.join(BASE_DIR, '.env')
-)
 
 TMDB_API_KEY = env('TMDB_API_KEY')
 OPENAI_API_KEY = env('OPENAI_API_KEY')
