@@ -9,13 +9,22 @@
     <p>Release Date: {{ movie.release_date }}</p>
     <p>Popularity: {{ movie.popularity }}</p>
     <p>Average Vote: {{ movie.vote_avg }}</p>
+    <h3>리뷰</h3>
+    <MovieReview 
+    :movieId="movieId"
+    />
+    <hr>
+    <h3>리뷰 작성하기</h3>
+    <router-link :to="{name:'review', params: {id: movieId}}">작성 하기</router-link>
+    <router-view />
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRecomStore } from '@/stores/recomStore.js'
-import { useMovieStore } from '@/stores/movieStore';
+import { useMovieStore } from '@/stores/movieStore'
+import MovieReview from '@/components/movie/detail/MovieReview.vue'
 
 const { movieId } = defineProps({
   movieId: String,

@@ -20,6 +20,8 @@ export const useMovieStore = defineStore('movieStore', () => {
   const isLiked = ref(false)
   const likeCount = ref(0)
 
+  const movieReview = ref([])
+
   // 평점 높은순
   const getRatedMovies = async () => {
     axios({
@@ -81,7 +83,7 @@ export const useMovieStore = defineStore('movieStore', () => {
     try {
       const response = await axios({
         method: 'post',
-        url: `${LOCAL_URL}/movie/like/${movieId}/`, // URL 수정
+        url: `${LOCAL_URL}/movie/like/${movieId}/`, 
         headers: {
           Authorization: `Token ${store.token}`
         }
@@ -94,6 +96,48 @@ export const useMovieStore = defineStore('movieStore', () => {
     }
   }
 
+  // 영화 리뷰
+  const createReview = async (movieId, payload) => {
+    const title = payload.title
+    const content = payload.content
+    const rating = payload.rating
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `${LOCAL_URL}/movie/review/${movieId}/`,
+        headers: {
+          Authorization: `Token ${store.token}`
+        },
+        data: {
+          title: title,
+          content: content,
+          rating: rating,
+        }
+      })
+      router.push({ name:'movieDetail', params: { movieId } })
+    }
+    catch (err) {
+      console.log('영화 리뷰 처리 중 에러', err);
+    }
+  }
+
+  const getReview = async (movieId) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${LOCAL_URL}/movie/review/${movieId}/`,
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
+      })
+      movieReview.value = response.data
+    }
+    catch (err) {
+      console.log('영화 리뷰 데이터 가져오기 실패:', err);
+    }
+  }
+    
+
   return { token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies, movieLike,
-    isLiked, likeCount, getRatedMovies, getNowPlayingMovies, getGenreList }
+    isLiked, likeCount, movieReview, getReview, createReview, getRatedMovies, getNowPlayingMovies, getGenreList }
 }, {persist: true})
