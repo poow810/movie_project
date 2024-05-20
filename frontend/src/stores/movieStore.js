@@ -17,6 +17,9 @@ export const useMovieStore = defineStore('movieStore', () => {
   const ratedMovies = ref([]) // 평점순 영화
   const genreMovies = ref([]) // 장르별 영화
   
+  const isLiked = ref(false)
+  const likeCount = ref(0)
+
   // 평점 높은순
   const getRatedMovies = async () => {
     axios({
@@ -72,7 +75,25 @@ export const useMovieStore = defineStore('movieStore', () => {
       console.log('데이터수집 실패:', err)
     })
   }
-  
-  return { token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies,
-    getRatedMovies, getNowPlayingMovies, getGenreList }
+
+  // 영화 좋아요
+  const movieLike = async (movieId) => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `${LOCAL_URL}/movie/like/${movieId}/`, // URL 수정
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
+      })
+      isLiked.value = response.data.is_liked
+      likeCount.value = response.data.like_count
+
+    } catch (err) {
+      console.log('좋아요 기능 처리 중 에러', err);
+    }
+  }
+
+  return { token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies, movieLike,
+    isLiked, likeCount, getRatedMovies, getNowPlayingMovies, getGenreList }
 }, {persist: true})

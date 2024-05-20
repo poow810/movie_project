@@ -26,3 +26,26 @@ def genre_select(request):
         ).filter(num_genres__gt=0).order_by('-num_genres', '-popularity')
         serializer = MovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+@api_view(['POST'])
+@login_required
+def movie_like(request, movie_id):
+    if request.method == 'POST':
+        movie = get_object_or_404(Movie, movie_id=movie_id)
+        if request.user in movie.likes.all():
+            movie.likes.remove(request.user)
+            is_liked = False
+            context = {
+                'is_liked': is_liked,
+                'like_count': movie.likes.count(),
+            }
+        
+        else:
+            movie.likes.add(request.user)
+            is_liked = True
+            context = {
+                'is_liked': is_liked,
+                'like_count': movie.likes.count(),
+            }
+        return Response(context, status=status.HTTP_200_OK)

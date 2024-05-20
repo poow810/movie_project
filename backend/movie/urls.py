@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('genre/', views.get_genre),
-    path('genreSelect/', views.genre_select)
+    path('genreSelect/', views.genre_select),
+    path('like/<int:movie_id>/', views.movie_like)
 ]

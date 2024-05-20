@@ -8,13 +8,18 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 TMDB_API_KEY = settings.TMDB_API_KEY
 django.setup()
 
-def get_movie():
-    request_url = f'https://api.themoviedb.org/3/discover/movie?api_key={TMDB_API_KEY}&Language=ko-KR'
-    response = requests.get(request_url)
-    print(response.json())
 
-get_movie()
 
+url = f"https://api.themoviedb.org/3/movie/3/credits?api_key={TMDB_API_KEY}&language=en-US"
+
+headers = {
+    "accept": "application/json",
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMzhmYzliNmI2MTNlMGJiNmI5NTEzOTA5YmUxY2U3MyIsInN1YiI6IjY2MjcxZTQ5MmRkYTg5MDE4N2U0OWQ1NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dzd-Kh-wLkYFvRUeO0Yp5CbgDKKS_2JUzyD3caAcwfQ"
+}
+
+response = requests.get(url, headers=headers)
+
+print(response.text)
 # def get_movie_detail(movie_id):
 #     request_url = f'https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={TMDB_API_KEY}&language=ko-KR'
 #     response = requests.get(request_url)
