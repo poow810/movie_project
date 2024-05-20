@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from allauth.account.adapter import DefaultAccountAdapter
+from movie.models import Movie
 
 # Create your models here.
 class User(AbstractUser):
@@ -35,3 +36,12 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         if commit:
             user.save()
         return user
+    
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    rating = models.DecimalField(max_digits=3, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
