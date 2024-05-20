@@ -10,6 +10,9 @@ export const useArticleStore = defineStore('articleStore', () => {
   const articles = ref([])
   const SERVER_URL = 'http://43.202.204.222'
   const LOCAL_URL = 'http://192.168.214.72:8000'
+  const isLiked = ref(false)
+  const likeCount = ref(0)
+  const comments = ref([])
 
   const getArticles = function () {
     axios({
@@ -57,25 +60,55 @@ export const useArticleStore = defineStore('articleStore', () => {
     try {
       const response = await axios({
         method: 'post',
-        url: `${LOCAL_URL}/community/detail/${articleId}/`, // URL 수정
+        url: `${LOCAL_URL}/community/detail/like/${articleId}/`, // URL 수정
         headers: {
           Authorization: `Token ${store.token}`
         }
-      });
-  
-      // 성공적으로 응답을 받은 후, 좋아요 수 업데이트
-      articles.value = articles.value.map((article) => {
-        if (article.id === articleId) {
-          // 서버로부터 받은 좋아요 수로 업데이트
-          return { ...article, like_count: response.data.like_count };
-        } else {
-          return article;
-        }
-      });
+      })
+      isLiked.value = response.data.is_liked
+      likeCount.value = response.data.like_count
+
     } catch (err) {
       console.log('좋아요 기능 처리 중 에러', err);
     }
   };
 
-  return  {SERVER_URL, LOCAL_URL, articles, store, getArticles, createArticle, favoriteArticle}
+  // 댓글
+  const fetchComments = async (articleId) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${LOCAL_URL}/community/comments/${articleId}/`,
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
+      })
+      console.log(response.data)
+      comments.value = response.data
+    } catch (err) {
+      console.log('댓글 조회 기능 처리 중 에러', err);
+    }
+  }
+
+  const createComment = async (articleId, content) => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `${LOCAL_URL}/community/comments/${articleId}/`,
+        headers: {
+          Authorization: `Token ${store.token}`
+        },
+        data: {
+          'content': content
+        }
+      })
+      comments.value.push(response.data)
+    } catch (err) {
+      console.log('댓글 생성 기능 처리 중 에러', err);
+    }
+  }
+
+
+  return  {SERVER_URL, LOCAL_URL, articles, isLiked, likeCount, store, comments,
+    fetchComments, getArticles, createArticle, favoriteArticle, createComment}
 }, {persist: true})
