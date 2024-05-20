@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-dark">
     <MovieRecentTrailer />
     <MovieNowPlayingList />
     <MovieTopRatedList />
@@ -15,5 +15,7 @@ import MovieGenreList from '@/components/movie/MovieGenreList.vue'
 </script>
 
 <style scoped>
-
+.bg-dark {
+  background-color: #1b1b1b;
+}
 </style>
