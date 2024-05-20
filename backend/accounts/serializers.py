@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from dj_rest_auth.registration.serializers import RegisterSerializer
 from dj_rest_auth.serializers import UserDetailsSerializer
 
+from accounts.models import Review
 from community.models import Comment, Post
 from movie.models import Movie
 
@@ -13,16 +14,20 @@ User = get_user_model()
 class UserDetailsSerializer(serializers.ModelSerializer):
     followings_count = serializers.SerializerMethodField()
     followers_count = serializers.SerializerMethodField()
+    review_count = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = '__all__'  # 필요한 경우 '__all__' 대신 실제 필드 목록을 명시하고 'followings_count', 'followers_count'를 추가
+        fields = ['id', 'username', 'email', 'user_image', 'username', 'nickname', 'followings_count', 'followers_count', 'review_count'] 
 
     def get_followings_count(self, obj):
         return obj.followings.count()
 
     def get_followers_count(self, obj):
         return obj.followers.count()
+    
+    def get_review_count(self, obj):
+        return Review.objects.filter(user=obj).count()
 
 class CustomRegisterSerializer(RegisterSerializer):
     nickname = serializers.CharField(

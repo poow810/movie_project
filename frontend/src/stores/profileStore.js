@@ -16,6 +16,7 @@ export const useProfileStore = defineStore('profileStore', () => {
     const userName = ref(null)
     const nickName = ref(null)
     const changeFollowerCount = ref(null)
+    const review_count = ref(null)
 
 
     const getProfile = async (id) => {
@@ -32,6 +33,7 @@ export const useProfileStore = defineStore('profileStore', () => {
             userImage.value = res.data.user_image;
             userName.value = res.data.username;
             nickName.value = res.data.nickname;
+            review_count.value = res.data.review_count
         } catch (err) {
             console.error(err);
         }
@@ -78,5 +80,5 @@ export const useProfileStore = defineStore('profileStore', () => {
     }
 
 
-    return { SERVER_URL, LOCAL_URL, followers_count, followings_count, changeFollowerCount, isFollowing, userImage, userName, nickName, getProfile, userFollowing, changeNickname }
+    return { SERVER_URL, LOCAL_URL, followers_count, followings_count, review_count, changeFollowerCount, isFollowing, userImage, userName, nickName, getProfile, userFollowing, changeNickname }
 }, { persist: true })

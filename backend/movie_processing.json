@@ -1,0 +1,169 @@
+{
+    "data": [
+        {
+            "movie_id": 1134055,
+            "title": "킬 샷",
+            "release_date": "2023-08-15",
+            "popularity": 29.854,
+            "vote_avg": 4.2,
+            "overview": "아프가니스탄에서 탈취한 백만달러를 미국으로 이송하던 비행기가 숲에 추락한다. 때마침 현직 사냥 가이드이던 전직 특수부대원 잭슨과 그의 고객 케이트가 숲에서 현금을 발견하게 된다. 그리고 현금 가방에 부착된 추적장치를 쫓아 국제 테러리스트의 용병들이 도착한다. 인적이라곤 없는 깊은 숲속에서 현금 다발을 두고 죽고 죽이는 처절한 대결이 펼쳐진다.",
+            "poster_path": "/uQxNMfwclU4dB1VtNPLDfhQpjTd.jpg",
+            "genres": [
+                28
+            ],
+            "directors": [
+                {
+                    "name_en": "Ari Novak",
+                    "name_kr": "아리 노박 (Ari Novak)"
+                }
+            ],
+            "actors": [
+                {
+                    "name_en": "Rib Hillis",
+                    "name_kr": "리브 힐리스 (Rib Hillis)"
+                },
+                {
+                    "name_en": "Rachel Cook",
+                    "name_kr": "레이첼 쿡 (Rachel Cook)"
+                },
+                {
+                    "name_en": "Todd Gordon",
+                    "name_kr": "토드 고든 (Todd Gordon)"
+                },
+                {
+                    "name_en": "Ari Novak",
+                    "name_kr": "아리 노박 (Ari Novak)"
+                },
+                {
+                    "name_en": "Xian Mikol",
+                    "name_kr": "시안 미콜 (Xian Mikol)"
+                }
+            ]
+        },
+        {
+            "movie_id": 1059,
+            "title": "숨겨진 요새의 세 악인",
+            "release_date": "1958-12-28",
+            "popularity": 26.425,
+            "vote_avg": 8.0,
+            "overview": "봉건 시대 일본, 씨족 간의 피비린내 나는 전쟁이 벌어지는 가운데 패배한 군대의 병사인 비겁하고 탐욕스러운 두 농부는 산 속에 숨겨진 요새로 안내하는 의문의 남자를 우연히 만나게 됩니다.",
+            "poster_path": "/wOIj6gJgAr6X2GzkWLltsoMfEvE.jpg",
+            "genres": [
+                18,
+                28,
+                12
+            ],
+            "directors": [
+                {
+                    "name_en": "구로사와 아키라",
+                    "name_kr": "구로사와 아키라\nPronunciation: Gurosawa Akira\n\n(Note: This is the name of a famous Japanese director, Akira Kurosawa)"
+                }
+            ],
+            "actors": [
+                {
+                    "name_en": "미후네 토시로",
+                    "name_kr": "미후네 토시로 (Mihune Toshio)"
+                },
+                {
+                    "name_en": "Minoru Chiaki",
+                    "name_kr": "치아키 미노루 (Chiaki Minoru)"
+                },
+                {
+                    "name_en": "Kamatari Fujiwara",
+                    "name_kr": "까마타리 후지와라 (Kamatari Fujiwara)"
+                },
+                {
+                    "name_en": "Misa Uehara",
+                    "name_kr": "미사 우에하라 (Misa Uehara)"
+                },
+                {
+                    "name_en": "Susumu Fujita",
+                    "name_kr": "스스무 후지타 (Susumu Fujita)"
+                }
+            ]
+        },
+        {
+            "movie_id": 1574,
+            "title": "시카고",
+            "release_date": "2002-12-10",
+            "popularity": 38.174,
+            "vote_avg": 7.114,
+            "overview": "단조롭고 지루한 일상에서 벗어나기를 꿈꾸며 화려한 무대 위 스타가 되길 꿈꾸는 록시(르네 젤위거)는 우발적인 살인으로 교도소에 수감된다. ​그곳에서 만난 매혹적인 시카고 최고의 디바 벨마(캐서린 제타 존스)는 승률 100%의 변호사 빌리(리처드 기어)와 무죄 석방을 위한 계획을 짜고 있다. 빌리는 법정을 하나의 무대로 탈바꿈시키는 쇼 비즈니스의 대가로, ​자극적인 사건에 불나방처럼 모여드는 언론의 속성을 교묘하게 이용한다. 록시 또한 빌리의 흥미를 끌어 자신의 변호를 맡기게 되고, ​평범한 가수 지망생에 불과했던 록시는 신문의 1면을 장식하며 일약 스타덤에 오르게 되는데...",
+            "poster_path": "/mEkMT13H2HXoTP6KdCwhaPYSSdD.jpg",
+            "genres": [
+                35,
+                80,
+                18
+            ],
+            "directors": [
+                {
+                    "name_en": "롭 마셜",
+                    "name_kr": "'롭 마셜' - Rob Marshall (롭 마샬)"
+                }
+            ],
+            "actors": [
+                {
+                    "name_en": "르네 젤위거",
+                    "name_kr": "르네 젤위거 (Re-ne Jeol-wi-geo)"
+                },
+                {
+                    "name_en": "캐서린 제타존스",
+                    "name_kr": "Korean text: 캐서린 제타존스\nPronunciation: Kaeseorin Jetajonseu"
+                },
+                {
+                    "name_en": "리처드 기어",
+                    "name_kr": "리처드 기어 (Richard Gere)"
+                },
+                {
+                    "name_en": "퀸 라티파",
+                    "name_kr": "퀸 라티파\n\n(퀸 라티파)"
+                },
+                {
+                    "name_en": "존 C. 라일리",
+                    "name_kr": "존 C. 라일리 (John C. Riley) - 존 씨 라일리 (Jon Ssi Lailli)"
+                }
+            ]
+        },
+        {
+            "movie_id": 39858,
+            "title": "미녀의 창자",
+            "release_date": "1986-09-23",
+            "popularity": 21.172,
+            "vote_avg": 4.86,
+            "overview": "처녀의 창자 속편",
+            "poster_path": "/3bAstAPpt3E5dslgLOhbftZTLeN.jpg",
+            "genres": [
+                27,
+                878
+            ],
+            "directors": [
+                {
+                    "name_en": "Kazuo Komizu",
+                    "name_kr": "가쓰오 코미즈 (Kazuo Komizu)"
+                }
+            ],
+            "actors": [
+                {
+                    "name_en": "Megumi Ozawa",
+                    "name_kr": "메구미 오자와 (Megumi Ozawa)"
+                },
+                {
+                    "name_en": "Seira Kitagawa",
+                    "name_kr": "세이라 키타가와 (Sei-ra Ki-ta-ga-wa)"
+                },
+                {
+                    "name_en": "Ken Yoshizawa",
+                    "name_kr": "켄 요시자와 (Ken Yoshizawa)"
+                },
+                {
+                    "name_en": "Ayako Ishii",
+                    "name_kr": "아야코 이시 (Ayako Ishii)"
+                },
+                {
+                    "name_en": "Shinji Sekikawa",
+                    "name_kr": "신지 세키카와 (Shinji Sekikawa)"
+                }
+            ]
+        }
+    ]
+}
