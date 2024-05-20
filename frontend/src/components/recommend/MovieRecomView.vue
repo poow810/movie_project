@@ -1,7 +1,9 @@
 <template>
   <div>
-    <RecomMovieGenre />
-    <RecomMovieGenreVote />
+    <RecomMovieGenre 
+    />
+    <RecomMovieGenreVote 
+    />
   </div>
 </template>
 
