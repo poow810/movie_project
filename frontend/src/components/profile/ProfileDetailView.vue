@@ -13,11 +13,11 @@
           </div>
         </div>
         <div>
-            <span>팔로워 수: {{ user.followers }}명</span>
+            <span>팔로워 수: {{ profileStore.followers_count }}명</span>
             <hr>
-            <span>팔로잉 수: {{ user.followings }}명</span>
+            <span>팔로잉 수: {{ profileStore.followings_count }}명</span>
             <hr>
-            <span>{{ user.username }}</span>
+            <span>{{ profileStore.userName }}</span>
             <br>
             <span>{{ profileStore.nickName }}</span>
             
@@ -27,7 +27,13 @@
                 <button @click="changeNickname(userId)">닉네임 변경</button>
             </div>
             <div v-else>
-                <button @click="following(user_id)">팔로잉</button></div>
+                <div v-if="profileStore.isFollowing">
+                    <button @click="following(user_id)">팔로잉 취소</button>
+                </div>
+                <div v-else>
+                    <button @click="following(user_id)">팔로잉</button>
+                </div>
+            </div>
             <hr>
             <span>작성한 리뷰 수: </span>
         </div>
@@ -36,7 +42,7 @@
 
 <script setup>
 import axios from 'axios'
-import { ref, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useProfileStore } from '@/stores/profileStore'
 import { useUserStore } from '@/stores/userStore'
 import noimage from '@/assets/static/noimage.png'

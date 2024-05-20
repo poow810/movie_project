@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="isSelected">
+        <div v-if="recomStore.isSelect">
             <MovieRecomView />
             <button @click="reload">재추천</button>
         </div>
@@ -19,10 +19,6 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const recomStore = useRecomStore()
-
-const isSelected = computed(() => {
-    return recomStore.isSelect
-})
 
 const reload = () => {
     recomStore.resetUserSetGenre()

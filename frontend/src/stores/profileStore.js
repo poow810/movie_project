@@ -8,12 +8,14 @@ export const useProfileStore = defineStore('profileStore', () => {
     const store = useUserStore()
     const router = useRouter()
     const SERVER_URL = 'http://43.202.204.222'
-    const LOCAL_URL = 'http://192.168.0.13:8000'
+    const LOCAL_URL = 'http://192.168.214.72:8000'
     const followers_count = ref(null)
     const followings_count = ref(null)
+    const isFollowing = ref(null)
     const userImage = ref(null)
     const userName = ref(null)
     const nickName = ref(null)
+    const changeFollowerCount = ref(null)
 
 
     const getProfile = async (id) => {
@@ -25,7 +27,6 @@ export const useProfileStore = defineStore('profileStore', () => {
                     'Authorization': `Token ${store.token}`
                 }
             });
-
             followers_count.value = res.data.followers_count;
             followings_count.value = res.data.followings_count;
             userImage.value = res.data.user_image;
@@ -44,10 +45,12 @@ export const useProfileStore = defineStore('profileStore', () => {
                 headers: {
                     'Authorization': `Token ${store.token}`
                 }
-            });
+            })
 
-            followers_count.value = res.data.followers_count;
-            followings_count.value = res.data.followings_count;
+            followers_count.value = res.data.follower_count;
+            followings_count.value = res.data.following_count;
+            isFollowing.value = res.data.is_followed;
+            changeFollowerCount.value = followers_count.value;
         } catch (err) {
             console.error(err);
         }
@@ -74,5 +77,6 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     }
 
-    return { SERVER_URL, LOCAL_URL, followers_count, followings_count, userImage, userName, nickName, getProfile, userFollowing, changeNickname }
+
+    return { SERVER_URL, LOCAL_URL, followers_count, followings_count, changeFollowerCount, isFollowing, userImage, userName, nickName, getProfile, userFollowing, changeNickname }
 }, { persist: true })

@@ -8,10 +8,11 @@ export const useRecomStore = defineStore('recomStore', () => {
   const store = useUserStore()
   const router = useRouter()
   const SERVER_URL = 'http://43.202.204.222'
-  const LOCAL_URL = 'http://192.168.0.13:8000'
+  const LOCAL_URL = 'http://192.168.214.72:8000'
 
   // 응답데이터 저장
   const userSetGenre = ref(null)
+  const anyname = ref('qwer')
 
   const getGenreToServer = async (select) => {
     axios({
@@ -35,16 +36,22 @@ export const useRecomStore = defineStore('recomStore', () => {
   }
   
   const isSelect = computed(() => {
-    if (userSetGenre.value === null) {
-      return false
-    } else {
-      return true
-    }
+    
+    return Boolean(userSetGenre.value)
+    // if (Boolean(userSetGenre.value)) {
+    //   return false
+    // } else {
+    //   return true
+    // }
   })
   
   const resetUserSetGenre = () => {
     userSetGenre.value = null;
   };
 
-  return { store, SERVER_URL, LOCAL_URL, userSetGenre, getGenreToServer, isSelect, resetUserSetGenre}
-}, {persist: { key: 'recomStore'}})
+  return { store, SERVER_URL, LOCAL_URL, userSetGenre, getGenreToServer, isSelect, resetUserSetGenre, anyname}
+  }, 
+  {persist: { key: 'recomStore',
+    paths: ['userSetGenre']
+  }
+})
