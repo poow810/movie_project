@@ -1,8 +1,11 @@
 from rest_framework import serializers
+
+from accounts.models import Review
 from .models import Movie, Genre
 from django.contrib.auth import get_user_model
 
 
+User = get_user_model()
 # 장르 조회
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,3 +31,17 @@ class MovieSerializer(serializers.ModelSerializer):
             'genres',
             'liked_count', 
         ]
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ['id', 'nickname', 'user_image']
+    
+    user = UserSerializer(read_only=True)
+    class Meta:
+        model = Review
+        fields = "__all__"
+        read_only_fields = ('user', 'movie')
+

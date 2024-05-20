@@ -8,7 +8,7 @@ export const useMovieStore = defineStore('movieStore', () => {
   const store = useUserStore()
   const token =  store.token
   const router = useRouter()
-  const LOCAL_URL = 'http://192.168.0.13:8000'
+  const LOCAL_URL = 'http://192.168.214.72:8000'
   const SERVER_URL = 'http://43.202.204.222'
   const TMDB_BASE_URL = 'https://api.themoviedb.org/3'
   const API_KEY = import.meta.env.VITE_TMDB_API_KEY
@@ -17,6 +17,11 @@ export const useMovieStore = defineStore('movieStore', () => {
   const ratedMovies = ref([]) // 평점순 영화
   const genreMovies = ref([]) // 장르별 영화
   
+  const isLiked = ref(false)
+  const likeCount = ref(0)
+
+  const movieReview = ref([])
+
   // 평점 높은순
   const getRatedMovies = async () => {
     axios({
@@ -72,7 +77,67 @@ export const useMovieStore = defineStore('movieStore', () => {
       console.log('데이터수집 실패:', err)
     })
   }
-  
-  return { token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies,
-    getRatedMovies, getNowPlayingMovies, getGenreList }
+
+  // 영화 좋아요
+  const movieLike = async (movieId) => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `${LOCAL_URL}/movie/like/${movieId}/`, 
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
+      })
+      isLiked.value = response.data.is_liked
+      likeCount.value = response.data.like_count
+
+    } catch (err) {
+      console.log('좋아요 기능 처리 중 에러', err);
+    }
+  }
+
+  // 영화 리뷰
+  const createReview = async (movieId, payload) => {
+    const title = payload.title
+    const content = payload.content
+    const rating = payload.rating
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `${LOCAL_URL}/movie/review/${movieId}/`,
+        headers: {
+          Authorization: `Token ${store.token}`
+        },
+        data: {
+          title: title,
+          content: content,
+          rating: rating,
+        }
+      })
+      router.push({ name:'movieDetail', params: { movieId } })
+    }
+    catch (err) {
+      console.log('영화 리뷰 처리 중 에러', err);
+    }
+  }
+
+  const getReview = async (movieId) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${LOCAL_URL}/movie/review/${movieId}/`,
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
+      })
+      movieReview.value = response.data
+    }
+    catch (err) {
+      console.log('영화 리뷰 데이터 가져오기 실패:', err);
+    }
+  }
+    
+
+  return { token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies, movieLike,
+    isLiked, likeCount, movieReview, getReview, createReview, getRatedMovies, getNowPlayingMovies, getGenreList }
 }, {persist: true})

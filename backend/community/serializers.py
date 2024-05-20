@@ -25,7 +25,12 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('nickname', 'user_image')
+
+    user = UserSerializer(read_only=True)
     class Meta:
         model = Comment
         fields = "__all__"
@@ -37,3 +42,4 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = "__all__"
+

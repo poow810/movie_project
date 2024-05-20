@@ -19,7 +19,7 @@ class Post(models.Model):
     click_count = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    like_count = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='likes_post')
 
 
 class Community(models.Model):

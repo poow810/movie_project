@@ -37,8 +37,31 @@ def detail(request, post_id):
         post = get_object_or_404(Post, pk=post_id)
         post.click_count += 1
         post.save()
-        serializer = PostSerializer(post, many=True)
+        serializer = PostSerializer(post)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+@login_required
+def detail_like(request, post_id):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, pk=post_id)
+        if request.user in post.likes.all():
+            post.likes.remove(request.user)
+            is_liked = False
+            context = {
+                'is_liked': is_liked,
+                'like_count': post.likes.count(),
+            }
+        
+        else:
+            post.likes.add(request.user)
+            is_liked = True
+            context = {
+                'is_liked': is_liked,
+                'like_count': post.likes.count(),
+            }
+        return Response(context, status=status.HTTP_200_OK)
 
 
 @api_view(['PUT', 'DELETE'])
@@ -57,7 +80,7 @@ def editPost(request, post_id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 @login_required
 def comment(request, post_id):
     if request.method == 'POST':
@@ -67,6 +90,10 @@ def comment(request, post_id):
             serializer.save(user=request.user, post=post)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+        comments = get_list_or_404(Comment, post=post_id)
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
 
 @api_view(['PUT'])
