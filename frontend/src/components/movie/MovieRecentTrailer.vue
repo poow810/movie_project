@@ -8,7 +8,6 @@
     </div>
     <div class="position-absolute top-0 start-0 translate-middle p-3">
       <h2 class="text-white">{{ latestMovieTitle }}</h2>
-      <p class="text-white">동영상 설명 또는 추가 정보</p>
     </div>
   </div>
 </template>
