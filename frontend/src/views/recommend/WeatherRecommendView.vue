@@ -4,7 +4,10 @@
       <h1>날씨 기반 추천 영화</h1>
       <p>오늘의 날씨: {{ weather }}</p>
       <img :src="`https://image.tmdb.org/t/p/original`+movieRecommend.poster_path" class="card-img-top" alt="...">
-      <p v-if="movieRecommend">{{ movieRecommend.title }}</p>
+      <p v-if="movieRecommend">{{ movieRecommend.title }}
+        <p>overview</p>
+        <p>{{ movieRecommend.overview }}</p>
+      </p>
     </div>
   </div>
 </template>
@@ -12,11 +15,13 @@
 <script setup>
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
+import { useUserStore } from '@/stores/userStore';
 
 const movieRecommend = ref([])
 const api_key = import.meta.env.VITE_OPENWEATHER_API_KEY
 const weather = ref('')
-
+const tmdb_api_key = import.meta.env.VITE_TMDB_API_KEY
+const store = useUserStore()
 async function getWeather() {
 
   navigator.geolocation.getCurrentPosition(async position => {
@@ -41,7 +46,6 @@ async function getWeather() {
 function recommendMovie(weatherData) {
   const mainWeather = weatherData.weather[0].main;
   let genreId
-
   switch (mainWeather) {
     case 'Clear':
       genreId = 10749 // 로맨스
@@ -60,10 +64,22 @@ function recommendMovie(weatherData) {
       weather.value = mainWeather
   }
 
-  console.log(movieStore.MovieList)
-  const filterMovies = movieStore.MovieList.filter(movie => movie.genre_ids.includes(genreId))
-  const randomMovie = filterMovies[Math.floor(Math.random() * filterMovies.length)]
-  movieRecommend.value = randomMovie
+  axios({
+    method: 'GET',
+    url: `http://192.168.214.72:8000/movie/weather/${genreId}/`,
+    headers: {
+      Authorization: `Token ${store.token}`
+    }
+  })
+  .then((response) => {
+    console.log(response.data)
+    movieRecommend.value = response.data
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+
+
 }
 
 onMounted(() => {
