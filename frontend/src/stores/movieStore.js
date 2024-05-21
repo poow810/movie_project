@@ -185,9 +185,25 @@ export const useMovieStore = defineStore('movieStore', () => {
       }
     }
   }
+
+  const searchMovie = async (text) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${LOCAL_URL}/movie/search/`,
+        params: {
+          text: text,
+        }
+      })
+      console.log(response.data)
+    }
+    catch (err) {
+      console.log('영화 검색 데이터 가져오기 실패:', err);
+    }
+  }
     
 
   return { API_KEY, token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies, movieLike,
     isLiked, likeCount, movieReview, detailMovies, movieDetail, getReview, createReview, getRatedMovies, getNowPlayingMovies, getGenreList,
-    getPopularMoviesByGenre }
+    getPopularMoviesByGenre, searchMovie }
 }, {persist: true})
