@@ -1,3 +1,4 @@
+import random
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -90,3 +91,28 @@ def review(request, movie_id):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response({"message": "리뷰가 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+        
+        
+@api_view(['GET'])
+@login_required
+def weather(request, genre_id):
+    if request.method == 'GET':
+        genre = get_object_or_404(Genre, id=genre_id)
+        
+        movies = Movie.objects.filter(genres=genre)        
+        if movies:
+            random_movie = random.choice(movies)
+            
+            movie_data = {
+                'movie_id': random_movie.movie_id,
+                'title': random_movie.title,
+                'poster_path': random_movie.poster_path,
+                'overview': random_movie.overview,
+                'release_date': random_movie.release_date,
+                'vote_avg': float(random_movie.vote_avg),
+                'popularity': float(random_movie.popularity),
+            }
+            
+            return JsonResponse(movie_data)
+        else:
+            return JsonResponse({'message': '해당 장르의 영화가 없습니다.'}, status=404)
