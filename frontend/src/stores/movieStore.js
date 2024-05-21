@@ -22,6 +22,8 @@ export const useMovieStore = defineStore('movieStore', () => {
 
   const movieReview = ref([])
 
+  const detailMovies = ref([])
+
   // 평점 높은순
   const getRatedMovies = async () => {
     axios({
@@ -59,24 +61,66 @@ export const useMovieStore = defineStore('movieStore', () => {
       console.error('영화 데이터 가져오기 실패:', err)
     })
   }
+  
 
-  // 장르별
-  const getGenreList = async () => {
-    axios({
-      method: 'get',
-      url: `${LOCAL_URL}/movie/genre/`,
-      // headers: {
-        // Authorization: `Token ${token}`
-      // }
-    })
-    .then((res) => {
-      console.log('데이터수집 완료:', res.data)
-      genreMovies.value = res.data
-    })
-    .catch((err) => {
-      console.log('데이터수집 실패:', err)
-    })
+    // 장르별
+    const getGenreList = async () => {
+      axios({
+        method: 'get',
+        url: `${TMDB_BASE_URL}/genre/movie/list`,
+        params: {
+          api_key: API_KEY,
+          language: 'ko-KR'
+        }
+      })
+      .then((res) => {
+        console.log('장르 영화 데이터 가져오기 성공:', res.data)
+        genreMovies.value = res.data
+      })
+      .catch((err) => {
+        console.log('데이터수집 실패:', err)
+      })
+    }
+    // 장르별 인기 영화 가져오기
+    const getPopularMoviesByGenre = async (genreId) => {
+      try {
+        const response = await axios({
+          method: 'get',
+          url: `${TMDB_BASE_URL}/discover/movie`,
+          params: {
+            api_key: API_KEY,
+            language: 'ko-KR',
+            sort_by: 'popularity.desc',
+            include_adult: false,
+            include_video: false,
+            page: 1,
+            with_genres: genreId // 장르 ID를 파라미터로 전달
+          }
+        });
+        console.log('장르별 인기 영화 데이터 가져오기 성공:', response.data);
+        genreMovies.value = response.data.results; // genreMovies에 결과 저장
+      } catch (err) {
+        console.error('장르별 인기 영화 데이터 가져오기 실패:', err);
+      }
+    };
+
+  // 영화 상세 조회
+  const movieDetail = async (movieId) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${LOCAL_URL}/movie/detail/${movieId}/`,
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
+      })
+      console.log('영화 상세 조회 성공:', response.data)
+      detailMovies.value = response.data
+    } catch (err) {
+      console.log('영화 상세 조회 기능 처리 중 에러', err);
+    }
   }
+
 
   // 영화 좋아요
   const movieLike = async (movieId) => {
@@ -143,6 +187,7 @@ export const useMovieStore = defineStore('movieStore', () => {
   }
     
 
-  return { token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies, movieLike,
-    isLiked, likeCount, movieReview, getReview, createReview, getRatedMovies, getNowPlayingMovies, getGenreList }
+  return { API_KEY, token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies, movieLike,
+    isLiked, likeCount, movieReview, detailMovies, movieDetail, getReview, createReview, getRatedMovies, getNowPlayingMovies, getGenreList,
+    getPopularMoviesByGenre }
 }, {persist: true})
