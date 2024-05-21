@@ -34,7 +34,7 @@ def genre_select(request):
     if request.method == 'GET':
         genreIds = request.GET.getlist('genre[]')
         movies = Movie.objects.annotate(num_genres=Count('genres', filter=Q(genres__id__in=genreIds))
-        ).filter(num_genres__gt=0).order_by('-num_genres', '-popularity')
+        ).filter(num_genres__gt=0).order_by('-num_genres', '-popularity')[:20]
         serializer = MovieSerializer(movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
@@ -116,3 +116,13 @@ def weather(request, genre_id):
             return JsonResponse(movie_data)
         else:
             return JsonResponse({'message': '해당 장르의 영화가 없습니다.'}, status=404)
+        
+
+@api_view(['GET'])
+def search(request):
+    print(request.data)
+    if request.method == 'GET':
+        text = request.GET.get('text')
+        movies = Movie.objects.filter(title__icontains=text)
+        serializer = MovieSerializer(movies, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
