@@ -14,8 +14,8 @@
 <script setup>
 import { onMounted } from 'vue';
 import { useMovieStore } from '@/stores/movieStore'
-// import { Swiper, SwiperSlide } from 'swiper/vue';
-// import 'swiper/swiper-bundle.css';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/swiper-bundle.css';
 
 const store = useMovieStore()
 const movies = store.genreMovies 
