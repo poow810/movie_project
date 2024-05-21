@@ -49,22 +49,29 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-4">
-                <h3>좋아요한 영화</h3>
+                <h3 @click="selectedComponent = ProfileLikeMovie">좋아요한 영화</h3>
             </div>
             <div class="col-md-4">
-                <h3>내 게시글</h3>
+                <h3 @click="selectedComponent = ProfilePost">내 게시글</h3>
             </div>
             <div class="col-md-4">
-                <h3>내 리뷰</h3>
+                <h3 @click="selectedComponent = ProfileReview">내 리뷰</h3>
             </div>
         </div>
-        <ProfileThreeView />
+        <div class="row mt-4">
+          <component :is="selectedComponent"></component>
+        </div>
     </div>
 </template>
 
 <script setup>
+
+import ProfileLikeMovie from './ProfileLikeMovie.vue'
+import ProfilePost from './ProfilePost.vue'
+import ProfileReview from './ProfileReview.vue'
+
 import axios from 'axios'
-import { ref, computed, watch } from 'vue'
+import { ref, markRaw, watch } from 'vue'
 import { useProfileStore } from '@/stores/profileStore'
 import { useUserStore } from '@/stores/userStore'
 import noimage from '@/assets/static/noimage.png'
@@ -78,7 +85,8 @@ defineProps({
     user_id:String,
     user:Object,
 })
-
+// 컴포넌트 변수
+const selectedComponent = ref(ProfileLikeMovie)
 
 // 이미지 배열
 const images = [noimage, image1, image2, image3, image4, image5]
@@ -145,4 +153,25 @@ if (profileStore.userImage !== null) {
 
 <style scoped>
 /* 스타일 작성 */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+.image-list img {
+  cursor: pointer;
+  margin: 5px;
+  max-width: 100px;
+}
 </style>

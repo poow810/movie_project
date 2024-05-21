@@ -38,7 +38,7 @@ const postId = route.params.id
 const getDetailPost = async (postId) => {
   try {
     const res = await axios({
-      url: `http://192.168.0.13:8000/community/detail/${postId}/`,
+      url: `http://192.168.214.72:8000/community/detail/${postId}/`,
       method: 'GET',
       headers: {
         Authorization: `Token ${userStore.token}`
