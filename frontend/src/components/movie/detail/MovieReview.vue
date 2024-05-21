@@ -1,9 +1,14 @@
 <template>
-  <div v-for="review in movieStore.movieReview" :key="review.id">
-    <img :src="images[review.user.user_image]" alt="User Image" style="width: 50px; height: 50px;">
-    {{ review.user.nickname }}
-    {{ review.content }}
-    {{ formatDate(review.created_at) }}
+  <div v-if="movieStore.movieReview.length > 0">
+    <div v-for="review in movieStore.movieReview" :key="review.id">
+      <img :src="images[review.user.user_image]" alt="User Image" style="width: 50px; height: 50px;">
+      {{ review.user.nickname }}
+      {{ review.content }}
+      {{ formatDate(review.created_at) }}
+    </div>
+  </div>
+  <div v-else>
+    리뷰가 없습니다.
   </div>
 </template>
 

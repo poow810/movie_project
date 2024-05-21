@@ -12,6 +12,7 @@ import CommuArticleDetail from '@/views/community/CommuArticleDetail.vue'
 import ProfileView from '@/views/profile/ProfileView.vue'
 import MovieView from '@/views/movie/MovieView.vue'
 import Review from '@/views/review/Review.vue'
+import WeatherRecommendView from '@/views/recommend/WeatherRecommendView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,6 +52,11 @@ const router = createRouter({
       path: '/movies/recommend',
       name: 'recommend',
       component: RecommendView
+    },
+    {
+      path: '/movies/recommend/weather',
+      name: 'weather',
+      component: WeatherRecommendView
     },
 
     // ACCOUNT
