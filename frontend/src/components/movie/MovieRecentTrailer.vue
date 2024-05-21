@@ -6,9 +6,6 @@
         allowfullscreen>
       </iframe>
     </div>
-    <div class="position-absolute top-0 start-0 translate-middle p-3">
-      <h2 class="text-white">{{ latestMovieTitle }}</h2>
-    </div>
   </div>
 </template>
 

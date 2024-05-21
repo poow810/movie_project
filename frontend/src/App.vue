@@ -31,6 +31,7 @@ const isLogIn = computed(() => {
             <li class="nav-item" v-if="isLogIn">
               <RouterLink class="nav-link text-white" :to="{ name: 'actor' }">배우</RouterLink>
               <RouterLink class="nav-link text-white" :to="{ name: 'recommend' }">영화추천</RouterLink>
+              <RouterLink class="nav-link text-white" :to="{ name: 'recommend' }">날씨추천</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link text-white" :to="{ name: 'community' }">커뮤니티</RouterLink>
