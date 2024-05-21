@@ -1,3 +1,4 @@
+from itertools import combinations
 import random
 from django.http import JsonResponse
 from rest_framework import status
@@ -120,9 +121,53 @@ def weather(request, genre_id):
 
 @api_view(['GET'])
 def search(request):
-    print(request.data)
-    if request.method == 'GET':
-        text = request.GET.get('text')
-        movies = Movie.objects.filter(title__icontains=text)
-        serializer = MovieSerializer(movies, many=True)
+    text = request.GET.get('text')
+    if not text:
+        return Response({"error": "No search text provided"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # 검색어를 포함하는 영화 검색
+    movies = Movie.objects.filter(title__icontains=text).distinct()
+    movie_count = movies.count()
+    
+    if movie_count == 0:
+        return Response({"message": "No movies found"}, status=status.HTTP_404_NOT_FOUND)
+    
+    # 검색 결과가 10개 이상인 경우 바로 반환
+    if movie_count >= 10:
+        serializer = MovieSerializer(movies[:10], many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    # 장르 기반 추가 영화 검색
+    genre_ids = movies.values_list('genres', flat=True).distinct()
+    additional_movies = Movie.objects.none()
+    
+    for i in range(len(genre_ids), 0, -1):
+        if movie_count >= 10:
+            break
+        genre_combinations = combinations(genre_ids, i)
+        selected_movies = Movie.objects.none()
+
+        for combination in genre_combinations:
+            # 현재 선택된 영화의 수
+            current_count = selected_movies.count()
+            
+            # 필요한 영화의 수를 계산 (최대 10개)
+            needed = 10 - current_count
+            
+            # 현재 조합에 맞는 영화들을 필터링 (단, 이미 선택된 영화는 제외)
+            additional_movies = Movie.objects.filter(genres__id__in=combination).exclude(id__in=selected_movies).distinct()[:needed]
+            
+            # 추가된 영화를 selected_movies에 추가
+            selected_movies = selected_movies | additional_movies
+            
+            # 만약 10개의 영화를 모두 찾았다면 반복 종료
+            if selected_movies.count() >= 10:
+                break
+
+    final_movies = list(movies)
+    if 10 - len(final_movies) > 0:
+        final_movies += list(additional_movies[:10 - len(final_movies)])
+    
+    if final_movies:
+        serializer = MovieSerializer(final_movies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
