@@ -11,7 +11,8 @@
       <br>
       조회수: {{ articleStore.detailPosts.click_count }}
       <button @click="handleFavorite(articleStore.detailPosts.id)">
-        좋아요 ({{ articleStore.detailPosts.like_count }})
+        <div v-if="articleStore.isLiked">좋아요 취소</div>
+        <div v-else>좋아요</div>
       </button>
       <hr>
       <CommentView v-if="articleStore.detailPosts.id" :articleId="articleStore.detailPosts.id" :key="articleStore.detailPosts.id"/>

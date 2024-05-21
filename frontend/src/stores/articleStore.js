@@ -9,7 +9,7 @@ export const useArticleStore = defineStore('articleStore', () => {
   const router = useRouter()
   const articles = ref([])
   const SERVER_URL = 'http://43.202.204.222'
-  const LOCAL_URL = 'http://192.168.214.72:8000'
+  const LOCAL_URL = 'http://172.30.1.98:8000'
   const isLiked = ref(false)
   const likeCount = ref(0)
   const comments = ref([])
@@ -25,6 +25,7 @@ export const useArticleStore = defineStore('articleStore', () => {
       }
     })
     .then((res) => {
+      console.log(res.data)
       articles.value = res.data
     })
     .catch((err) => {
@@ -65,8 +66,9 @@ export const useArticleStore = defineStore('articleStore', () => {
           Authorization: `Token ${store.token}`
         }
       })
+      console.log(res.data)
       detailPosts.value = res.data
-      console.log(detailPosts.value)
+      isLiked.value = res.data.is_liked_by_user
     } catch (err) {
       console.log(err)
     }
@@ -82,6 +84,8 @@ export const useArticleStore = defineStore('articleStore', () => {
           Authorization: `Token ${store.token}`
         }
       })
+      console.log(response.data.is_liked)
+      isLiked.value = response.data.is_liked
       detailPosts.value.like_count = response.data.like_count
       return response.data
     } catch (err) {
