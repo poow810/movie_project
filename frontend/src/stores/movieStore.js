@@ -130,10 +130,15 @@ export const useMovieStore = defineStore('movieStore', () => {
           Authorization: `Token ${store.token}`
         }
       })
+      console.log(response.data)
       movieReview.value = response.data
     }
     catch (err) {
-      console.log('영화 리뷰 데이터 가져오기 실패:', err);
+      if (err.response && err.response.status === 404) {
+        movieReview.value = []
+      } else {
+        console.log('영화 리뷰 데이터 가져오기 실패:', err);
+      }
     }
   }
     

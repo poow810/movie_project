@@ -23,6 +23,7 @@ def post(request):
         return JsonResponse(context)
     
     elif request.method == 'POST':
+        print(request.data)
         serializer = PostSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
@@ -91,7 +92,8 @@ def comment(request, post_id):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        comments = get_list_or_404(Comment, post=post_id)
+        user = request.user
+        comments = Comment.objects.filter(post=post_id, user=user)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     

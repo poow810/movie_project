@@ -128,7 +128,6 @@ if __name__ == "__main__":
 #     try:
 #         with open(json_file_path, 'r', encoding='utf-8') as file:
 #             data = json.load(file)
-#             print('동작')
 #             processed_data = []
 
 #             for movie_data in data['data']:
@@ -161,7 +160,6 @@ if __name__ == "__main__":
 
 #                 processed_data.append(processed_movie)
             
-#             print(processed_data)
 #             with open(output_file_path, 'w', encoding='utf-8') as outfile:
 #                 json.dump({'data': processed_data}, outfile, ensure_ascii=False, indent=4)
 #     except Exception as e:

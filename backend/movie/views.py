@@ -12,6 +12,14 @@ from django.db.models import Count, Q
 
 
 @api_view(['GET'])
+def getMovies(request, movie_id):
+    if request.method == 'GET':
+        movie = get_object_or_404(Movie, id=movie_id)
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
 def get_genre(request):
     if request.method == 'GET':
         movies = get_list_or_404(Movie)
@@ -67,6 +75,9 @@ def review(request, movie_id):
     
     elif request.method == 'GET':
         movie = get_object_or_404(Movie, movie_id=movie_id)
-        reviews = get_list_or_404(Review, movie=movie)
-        serializer = ReviewSerializer(reviews, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        reviews = Review.objects.filter(movie=movie, user=request.user)
+        if reviews.exists():
+            serializer = ReviewSerializer(reviews, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"message": "리뷰가 없습니다."}, status=status.HTTP_404_NOT_FOUND)
