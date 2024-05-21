@@ -2,19 +2,19 @@
   <div>
     <h1>디테일</h1>
     <hr>
-    <div v-if="article">
+    <div v-if="articleStore.detailPosts">
       <h1>게시글 상세페이지</h1>
       <hr>
-      게시글 제목: {{ article.title }}
+      게시글 제목: {{ articleStore.detailPosts.title }}
       <br>
-      게시글 내용: {{ article.content }}
+      게시글 내용: {{ articleStore.detailPosts.content }}
       <br>
-      조회수: {{ article.click_count }}
-      <button @click="handleFavorite(article.id)">
-        좋아요 ({{ articleStore.likeCount }})
+      조회수: {{ articleStore.detailPosts.click_count }}
+      <button @click="handleFavorite(articleStore.detailPosts.id)">
+        좋아요 ({{ articleStore.detailPosts.like_count }})
       </button>
       <hr>
-      <CommentView v-if="article.id" :articleId="article.id" :key="article.id"/>
+      <CommentView v-if="articleStore.detailPosts.id" :articleId="articleStore.detailPosts.id" :key="articleStore.detailPosts.id"/>
     </div>
     <div v-else>게시글 불러오는 중..</div>
   </div>
@@ -35,28 +35,12 @@ const route = useRoute()
 const article = ref(null) // 초기값을 null로 변경
 const postId = route.params.id
 
-const getDetailPost = async (postId) => {
-  try {
-    const res = await axios({
-      url: `http://192.168.214.72:8000/community/detail/${postId}/`,
-      method: 'GET',
-      headers: {
-        Authorization: `Token ${userStore.token}`
-      }
-    });
-    console.log(res.data);
-    article.value = res.data;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 const handleFavorite = (postId) => {
   articleStore.favoriteArticle(postId)
 }
 
 onMounted(() => {
-  getDetailPost(postId)
+  articleStore.getDetailPost(postId)
 })
 </script>
 

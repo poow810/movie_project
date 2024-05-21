@@ -16,13 +16,17 @@ class PostSerializer(serializers.ModelSerializer):
             fields = ('id', 'username')
 
     user = UserSerializer(read_only=True)
-
+    like_count = serializers.SerializerMethodField()
+    
     class Meta:
         model = Post
         fields = "__all__"
         extra_kwargs = {
             'likes': {'required': False},
         }
+
+    def get_like_count(self, obj):
+        return obj.likes.count()
 
     def create(self, validated_data):
         likes_data = validated_data.pop('likes', [])

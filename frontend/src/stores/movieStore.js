@@ -22,6 +22,8 @@ export const useMovieStore = defineStore('movieStore', () => {
 
   const movieReview = ref([])
 
+  const detailMovies = ref([])
+
   // 평점 높은순
   const getRatedMovies = async () => {
     axios({
@@ -59,15 +61,17 @@ export const useMovieStore = defineStore('movieStore', () => {
       console.error('영화 데이터 가져오기 실패:', err)
     })
   }
+  
 
   // 장르별
   const getGenreList = async () => {
     axios({
       method: 'get',
-      url: `${LOCAL_URL}/movie/genre/`,
-      // headers: {
-        // Authorization: `Token ${token}`
-      // }
+      url: `${TMDB_BASE_URL}/movie/genre/`,
+      params: {
+        api_key: API_KEY,
+        language: 'ko-KR'
+      }
     })
     .then((res) => {
       console.log('데이터수집 완료:', res.data)
@@ -77,6 +81,24 @@ export const useMovieStore = defineStore('movieStore', () => {
       console.log('데이터수집 실패:', err)
     })
   }
+
+  // 영화 상세 조회
+  const movieDetail = async (movieId) => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${LOCAL_URL}/movie/detail/${movieId}/`,
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
+      })
+      console.log('영화 상세 조회 성공:', response.data)
+      detailMovies.value = response.data
+    } catch (err) {
+      console.log('영화 상세 조회 기능 처리 중 에러', err);
+    }
+  }
+
 
   // 영화 좋아요
   const movieLike = async (movieId) => {
@@ -143,6 +165,6 @@ export const useMovieStore = defineStore('movieStore', () => {
   }
     
 
-  return { token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies, movieLike,
-    isLiked, likeCount, movieReview, getReview, createReview, getRatedMovies, getNowPlayingMovies, getGenreList }
+  return { API_KEY, token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies, movieLike,
+    isLiked, likeCount, movieReview, detailMovies, movieDetail, getReview, createReview, getRatedMovies, getNowPlayingMovies, getGenreList }
 }, {persist: true})

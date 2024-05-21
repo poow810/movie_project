@@ -61,6 +61,15 @@ def movie_like(request, movie_id):
         return Response(context, status=status.HTTP_200_OK)
     
 
+@api_view(['GET'])
+@login_required
+def detail(request, movie_id):
+    if request.method == 'GET':
+        movie = get_object_or_404(Movie, movie_id=movie_id)
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 @api_view(['GET', 'POST'])
 @login_required
 def review(request, movie_id):

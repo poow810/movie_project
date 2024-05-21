@@ -1,7 +1,7 @@
 <template>
   <div class="movie-container">
     <div class="movies-grid">
-      <div v-for="movie in profileStore.likeMovies" :key="movie.movie_id" class="movie-card">
+      <div v-for="movie in profileStore.likeMovies" :key="movie.movie_id" class="movie-card" @click="goMovie(movie.movie_id)">
         <img :src="`https://image.tmdb.org/t/p/original`+movie.poster_path" alt="movie poster" class="movie-poster" />
         <h2 class="movie-title">{{ movie.title }}</h2>
       </div>
@@ -12,8 +12,14 @@
 <script setup>
 import { useProfileStore } from '@/stores/profileStore'
 import { computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const profileStore = useProfileStore()
+const router = useRouter()
+
+const goMovie = (movie_id) => {
+  router.push({name: "movieDetail", params: {id : movie_id}})
+}
 
 </script>
 
