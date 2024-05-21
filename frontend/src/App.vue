@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { RouterLink, RouterView } from 'vue-router'
 import { useUserStore } from '@/stores/userStore'
 import { useMovieStore } from '@/stores/movieStore';
@@ -20,8 +20,8 @@ const logOut = function () {
   userStore.logOut()
 }
 
-const isLogIn = computed(() => {
-  return userStore.isLogIn
+onMounted(() => {
+  console.log(userStore.isLogIn)
 })
 </script>
 
@@ -35,7 +35,7 @@ const isLogIn = computed(() => {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item" v-if="isLogIn">
+            <li class="nav-item" v-if="userStore.isLogIn">
               <RouterLink class="nav-link text-white" :to="{ name: 'actor' }">배우</RouterLink>
               <RouterLink class="nav-link text-white" :to="{ name: 'recommend' }">영화추천</RouterLink>
               <RouterLink class="nav-link text-white" :to="{ name: 'weather' }">날씨추천</RouterLink>
@@ -54,7 +54,7 @@ const isLogIn = computed(() => {
                 </span>
               </div>
             </li>
-            <li class="nav-item" v-if="isLogIn">
+            <li class="nav-item" v-if="userStore.isLogIn">
               <RouterLink class="nav-link text-white" :to="{ name: 'profile', params: {'id': id}}">프로필</RouterLink>
               <button class="btn btn-outline-success" @click="logOut">로그아웃</button>
             </li>

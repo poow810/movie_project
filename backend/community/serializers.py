@@ -16,25 +16,26 @@ class PostSerializer(serializers.ModelSerializer):
             fields = ('id', 'username')
 
     user = UserSerializer(read_only=True)
+    likes_count = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
+    is_liked_by_user = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
-        fields = "__all__"
-        extra_kwargs = {
-            'likes': {'required': False},
-        }
+        fields = ('id', 'title', 'content','created_at','updated_at','click_count', 'user', 'category' ,'likes_count', 'comments_count', 'is_liked_by_user')
 
-    def create(self, validated_data):
-        likes_data = validated_data.pop('likes', [])
-        post = Post.objects.create(**validated_data)
-        post.likes.set(likes_data)
-        return post
+    def get_likes_count(self, obj):
+        return obj.likes.count()
 
-    def update(self, instance, validated_data):
-        likes_data = validated_data.pop('likes', [])
-        instance = super().update(instance, validated_data)
-        instance.likes.set(likes_data)
-        return instance
+    def get_comments_count(self, obj):
+        return Comment.objects.filter(post=obj).count()
+
+    def get_is_liked_by_user(self, obj):
+        request = self.context.get('request', None)
+        if request is not None and not request.user.is_anonymous:
+            return obj.likes.filter(id=request.user.id).exists()
+        return False
+       
 
 class CommentSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):

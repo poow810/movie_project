@@ -66,7 +66,7 @@ function recommendMovie(weatherData) {
 
   axios({
     method: 'GET',
-    url: `http://192.168.214.72:8000/movie/weather/${genreId}/`,
+    url: `http://172.30.1.98:8000/movie/weather/${genreId}/`,
     headers: {
       Authorization: `Token ${store.token}`
     }

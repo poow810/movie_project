@@ -6,7 +6,7 @@
       <swiper-slide v-for="movie in movies" :key="movie.id">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`" class="rounded-2"/>
         <p class="fs-5">{{ movie.title }}</p>
-        <p class="fs-6">평점: {{ movie.vote_average }}</p>
+        <p class="fs-6">평점: {{ movie.vote_average.toFixed(1) }}</p>
         <!-- <p>줄거리: {{ movie.overview }}</p> -->
       </swiper-slide>
     </swiper>
