@@ -55,7 +55,7 @@ const router = createRouter({
     },
     {
       path: '/movies/recommend/weather',
-      name: 'recommend',
+      name: 'weather',
       component: WeatherRecommendView
     },
 
