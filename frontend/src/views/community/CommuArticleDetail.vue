@@ -42,6 +42,7 @@ const article = ref(null) // 초기값을 null로 변경
 const postId = route.params.id
 
 const handleFavorite = (postId) => {
+  console.log(articleStore.isLiked)
   articleStore.favoriteArticle(postId)
 }
 
