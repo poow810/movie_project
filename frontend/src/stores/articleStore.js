@@ -14,6 +14,8 @@ export const useArticleStore = defineStore('articleStore', () => {
   const likeCount = ref(0)
   const comments = ref([])
 
+  const detailPosts = ref([])
+
   const getArticles = function () {
     axios({
       method: 'get',
@@ -47,7 +49,6 @@ export const useArticleStore = defineStore('articleStore', () => {
       }
     })
     .then((res) => {
-      console.log(res.data)
       router.push({ name: 'community' })
     })
     .catch((err) => {
@@ -55,21 +56,41 @@ export const useArticleStore = defineStore('articleStore', () => {
     })
   }
 
-  // 좋아요
-  const favoriteArticle = async (articleId) => {
+  // 디테일 조회
+  const getDetailPost = async (postId) => {
     try {
-      const response = await axios({
-        method: 'post',
-        url: `${LOCAL_URL}/community/detail/like/${articleId}/`, // URL 수정
+      const res = await axios({
+        url: `${LOCAL_URL}/community/detail/${postId}/`,
+        method: 'GET',
         headers: {
           Authorization: `Token ${store.token}`
         }
       })
-      isLiked.value = response.data.is_liked
-      likeCount.value = response.data.like_count
+      console.log(res.data)
+      detailPosts.value = res.data
+      isLiked.value = res.data.is_liked_by_user
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
+   // 좋아요
+  const favoriteArticle = async (articleId) => {
+    try {
+      const response = await axios({
+        method: 'post',
+        url: `${LOCAL_URL}/community/detail/like/${articleId}/`,
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
+      })
+      console.log(response.data.is_liked)
+      isLiked.value = response.data.is_liked
+      detailPosts.value.like_count = response.data.like_count
+      return response.data
     } catch (err) {
       console.log('좋아요 기능 처리 중 에러', err);
+      throw err
     }
   };
 
@@ -83,7 +104,6 @@ export const useArticleStore = defineStore('articleStore', () => {
           Authorization: `Token ${store.token}`
         }
       })
-      console.log(response.data)
       comments.value = response.data
     } catch (err) {
       console.log('댓글 조회 기능 처리 중 에러', err);
@@ -109,6 +129,6 @@ export const useArticleStore = defineStore('articleStore', () => {
   }
 
 
-  return  {SERVER_URL, LOCAL_URL, articles, isLiked, likeCount, store, comments,
-    fetchComments, getArticles, createArticle, favoriteArticle, createComment}
+  return  {SERVER_URL, LOCAL_URL, articles, isLiked, likeCount, store, comments, detailPosts,
+    fetchComments, getDetailPost, getArticles, createArticle, favoriteArticle, createComment}
 }, {persist: true})

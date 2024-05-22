@@ -38,9 +38,8 @@ def detail(request, post_id):
         post = get_object_or_404(Post, pk=post_id)
         post.click_count += 1
         post.save()
-        serializer = PostSerializer(post)
+        serializer = PostSerializer(post, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
-
 
 @api_view(['POST'])
 @login_required
