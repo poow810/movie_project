@@ -52,18 +52,15 @@ onMounted(() => {
             </ul>
           </li>
           <li class="nav-item">
-            <!-- <input class="nav-link disabled text-white" href="#" tabindex="-1" aria-disabled="true" v-model="searchText" @keypress.enter="searchMovie" placeholder="검색어를 입력해주세요."> -->
-            <!-- <span class="input-group-text" id="basic-addon1" @click="searchMovie">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg> -->
-            <!-- </span> -->
+            <!-- <input class="nav-link disabled text-white" href="#" tabindex="-1" aria-disabled="true" v-model="searchText" @keypress.enter="searchMovie" placeholder="검색어를 입력해주세요.">
+            </span> -->
           </li>
         </ul>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <form class="d-flex">
-            <input class="form-control me-2 other" type="search" placeholder="영화를 입력해주세요 :)" @keypress.enter="searchMovie" aria-label="Search">
-            <button @click="searchMovie" class="btn btn-outline-success other text-white" type="submit">Search</button>
-          </form>
+          <div class="d-flex">
+            <input type="text" class="form-control me-2 other" placeholder="영화를 입력해주세요 :)" aria-label="Input group example" aria-describedby="basic-addon1" v-model="searchText" @keypress.enter="searchMovie">
+            <button class="btn btn-outline-success other text-white" id="basic-addon1" @click="searchMovie">Search</button>
+          </div>
           <li class="nav-item">
             <RouterLink v-if="!userStore.isLogIn" class= "nav-link text-white" :to="{ name: 'signup' }">회원가입</RouterLink>
           </li>
