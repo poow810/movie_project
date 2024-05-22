@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-(e(msgo*@flawm!5oy73aokxc@wn%6k+#=vs&vlk-!21%6j0sv
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "172.30.1.32",
+    "192.168.0.13",
     ".ap-northeast-2.compute.amazonaws.com",
     "43.202.204.222"
 ]
@@ -197,13 +197,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = env('EMAIL_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
 
 TMDB_API_KEY = env('TMDB_API_KEY')
 OPENAI_API_KEY = env('OPENAI_API_KEY')
