@@ -13,6 +13,9 @@ import ProfileView from '@/views/profile/ProfileView.vue'
 import MovieView from '@/views/movie/MovieView.vue'
 import Review from '@/views/review/Review.vue'
 import WeatherRecommendView from '@/views/recommend/WeatherRecommendView.vue'
+import ReviewDetail from '@/views/review/ReviewDetail.vue'
+import MovieSearchView from '@/views/movie/MovieSearchView.vue'
+import CommuArticleUpdateView from '@/views/community/CommuArticleUpdateView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +43,11 @@ const router = createRouter({
       path: '/community/create',
       name: 'create',
       component: CommuArticleCreateView
+    },
+    {
+      path: '/community/update/:id',
+      name: 'update',
+      component: CommuArticleUpdateView
     },
     {
       path: '/community/:id',
@@ -76,7 +84,7 @@ const router = createRouter({
       component: LogOug
     },
     {
-      path: '/accounts/passwordchange',
+      path: '/accounts/password/reset',
       name: 'passwordchange',
       component: PasswordChange
     },
@@ -92,12 +100,22 @@ const router = createRouter({
       name: 'movieDetail',
       component: MovieView
     },
+    {
+      path: '/movies/search',
+      name: 'movieSearch',
+      component: MovieSearchView
+    },
     
     // Review
     {
       path: '/reviews/:id',
       name: 'review',
       component: Review
+    },
+    {
+      path: '/reviews/detail/:review_id',
+      name:'reviewDetail',
+      component: ReviewDetail
     }
   ]
 })

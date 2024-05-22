@@ -7,7 +7,7 @@ export const useUserStore = defineStore('userStore', () => {
   const token = ref(null)
   const router = useRouter()
   const SERVER_URL = 'http://43.202.204.222'
-  const LOCAL_URL = 'http://172.30.1.98:8000'
+  const LOCAL_URL = 'http://192.168.0.13:8000'
   const userId = ref(null)
 
   // 로그인 확인
@@ -34,7 +34,8 @@ export const useUserStore = defineStore('userStore', () => {
       await checkUser(token.value) // await를 사용하여 비동기 처리 기다림
       router.push({ name: 'home' }) // userId가 업데이트된 후에 홈으로 이동
     } catch (err) {
-      console.log(err)
+      alert(err.response.data.non_field_errors)
+      console.log(err);
     }
   }
 
@@ -75,6 +76,11 @@ export const useUserStore = defineStore('userStore', () => {
   // 회원가입
   const signUp = function (payload) {
     const { username, nickname, email, password1, password2 } = payload
+
+    if (password1 !== password2) {
+      alert('비밀번호가 일치하지 않습니다.')
+      return router.push({name:'signup'})
+    }
     axios({
       method: 'post',
       url: `${LOCAL_URL}/accounts/signup/`,
@@ -88,7 +94,12 @@ export const useUserStore = defineStore('userStore', () => {
       logIn({ username, password })
     })
     .catch((err) => {
-      console.log(err)
+      const errorResponse = JSON.parse(err.response.request.responseText);
+      const firstErrorField = Object.keys(errorResponse)[0];
+      const firstErrorMessage = errorResponse[firstErrorField][0];
+      
+      alert(`${firstErrorMessage}`);
+      console.log(err);
     })
   }
 

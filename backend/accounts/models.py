@@ -9,7 +9,7 @@ class User(AbstractUser):
     nickname = models.CharField(max_length=150)
     is_best_user = models.BooleanField(default=False)
     user_image = models.IntegerField(default=0)
-
+    email = models.EmailField(unique=True)  # 이메일을 고유 필드로 설정
 
 class CustomAccountAdapter(DefaultAccountAdapter):
     def save_user(self, request, user, form, commit=True):
@@ -20,6 +20,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         email = data.get("email")
         username = data.get("username")
         nickname = data.get("nickname")
+
         user_email(user, email)
         user_username(user, username)
         if first_name:
@@ -36,7 +37,6 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         if commit:
             user.save()
         return user
-    
 
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

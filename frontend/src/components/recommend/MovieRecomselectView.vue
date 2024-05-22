@@ -3,7 +3,7 @@
     <div class="d-flex genre-selection m-5 justify-content-center">
       <div v-for="genre in selectGenres" :key="genre.id" class="genre-item" @click="toggleSelect(genre.id)">
         <img :src="genre.image" :alt="genre.name" class="genre-image rounded-circle" :class="{'selected': select.includes(genre.id)}">
-        <p>{{ genre.name }}</p>
+        <p class="text-center">{{ genre.name }}</p>
       </div>
     </div>
     <div class="row">
@@ -89,6 +89,7 @@ const submitSelect = () => {
 </script>
 
 <style scoped>
+
 .genre-selection {
   display: flex;
   flex-wrap: wrap;
@@ -96,6 +97,7 @@ const submitSelect = () => {
 .genre-item {
   cursor: pointer;
   margin: 10px;
+  color: #ffffff;
 }
 .genre-image {
   width: 100px; /* 이미지 크기 조절 */
@@ -105,4 +107,5 @@ const submitSelect = () => {
 .genre-image.selected {
   border: 2px solid orange; /* 선택된 항목 표시 */
 }
+
 </style>

@@ -1,3 +1,4 @@
+from itertools import combinations
 import random
 from django.http import JsonResponse
 from rest_framework import status
@@ -5,10 +6,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from accounts.models import Review
-from .models import Movie, Genre
+from .models import Movie, Genre, Person
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .serializers import MovieSerializer, GenreSerializer, ReviewSerializer
+from .serializers import MovieGenreSerializer, MovieSerializer, GenreSerializer, PersonSerializer, ReviewDetailSerializer, ReviewSerializer
 from django.db.models import Count, Q
 
 
@@ -16,15 +17,7 @@ from django.db.models import Count, Q
 def getMovies(request, movie_id):
     if request.method == 'GET':
         movie = get_object_or_404(Movie, id=movie_id)
-        serializer = MovieSerializer(movie)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-@api_view(['GET'])
-def get_genre(request):
-    if request.method == 'GET':
-        movies = get_list_or_404(Movie)
-        serializer = MovieSerializer(movies, many=True)
+        serializer = MovieSerializer(movie, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -35,7 +28,7 @@ def genre_select(request):
         genreIds = request.GET.getlist('genre[]')
         movies = Movie.objects.annotate(num_genres=Count('genres', filter=Q(genres__id__in=genreIds))
         ).filter(num_genres__gt=0).order_by('-num_genres', '-popularity')[:20]
-        serializer = MovieSerializer(movies, many=True)
+        serializer = MovieGenreSerializer(movies, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 
@@ -62,11 +55,20 @@ def movie_like(request, movie_id):
         return Response(context, status=status.HTTP_200_OK)
     
 
+@api_view(['GET'])
+@login_required
+def detail(request, movie_id):
+    if request.method == 'GET':
+        movie = get_object_or_404(Movie, movie_id=movie_id)
+        serializer = MovieSerializer(movie, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 @api_view(['GET', 'POST'])
 @login_required
 def review(request, movie_id):
     if request.method == 'POST':
-        serializer = ReviewSerializer(data=request.data)
+        serializer = ReviewSerializer(data=request.data, many=True, context={'request': request})
         movie = get_object_or_404(Movie, movie_id=movie_id)
         if serializer.is_valid():
             serializer.save(user=request.user, movie=movie)
@@ -76,14 +78,24 @@ def review(request, movie_id):
     
     elif request.method == 'GET':
         movie = get_object_or_404(Movie, movie_id=movie_id)
-        reviews = Review.objects.filter(movie=movie, user=request.user)
+        reviews = Review.objects.filter(movie=movie)
         if reviews.exists():
-            serializer = ReviewSerializer(reviews, many=True)
+            serializer = ReviewSerializer(reviews, many=True, context={'request': request})
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response({"message": "리뷰가 없습니다."}, status=status.HTTP_404_NOT_FOUND)
         
-        
+
+@api_view(['GET'])
+@login_required
+def detailReview(request, review_id):
+    print(request)
+    if request.method == 'GET':
+        review = get_object_or_404(Review, pk=review_id)
+        serializer = ReviewDetailSerializer(review, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 @api_view(['GET'])
 @login_required
 def weather(request, genre_id):
@@ -111,9 +123,61 @@ def weather(request, genre_id):
 
 @api_view(['GET'])
 def search(request):
-    print(request.data)
-    if request.method == 'GET':
-        text = request.GET.get('text')
-        movies = Movie.objects.filter(title__icontains=text)
-        serializer = MovieSerializer(movies, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    text = request.GET.get('text')
+    search_type = request.GET.get('type')  # 검색 타입 (영화, 배우)
+
+    if not text:
+        return Response({"error": "No search text provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+    movies = Movie.objects.none()
+    persons = Person.objects.none()
+    if search_type == '영화':
+        movies = Movie.objects.filter(title__icontains=text).distinct()
+    elif search_type == '이름':
+        persons = Person.objects.filter(name_kr__icontains=text).distinct()
+    else:
+        return Response({"error": "Invalid search type"}, status=status.HTTP_400_BAD_REQUEST)
+
+    movie_count = movies.count()
+    person_count = persons.count()
+
+    # 영화와 배우 검색 결과 합치기
+    total_count = movie_count + person_count
+
+    if total_count >= 10:
+        movie_serializer = MovieSerializer(movies[:10], many=True, context={'request': request})
+        person_serializer = PersonSerializer(persons[:10 - movie_count], many=True, context={'request': request})
+        data = movie_serializer.data + person_serializer.data
+        return Response(data, status=status.HTTP_200_OK)
+
+    # 장르 기반 추가 영화 검색
+    if movie_count > 0:
+        genre_ids = movies.values_list('genres', flat=True).distinct()
+        additional_movies = Movie.objects.none()
+
+        for i in range(len(genre_ids), 0, -1):
+            if total_count >= 10:
+                break
+            genre_combinations = combinations(genre_ids, i)
+            selected_movies = Movie.objects.none()
+
+            for combination in genre_combinations:
+                current_count = selected_movies.count()
+                needed = 10 - total_count
+
+                additional_movies = Movie.objects.filter(genres__id__in=combination).exclude(id__in=selected_movies).distinct()
+                additional_movies = additional_movies.annotate(genre_count=Count('genres')).order_by('-genre_count')[:needed]
+
+                selected_movies = selected_movies | additional_movies
+                total_count += selected_movies.count()
+
+                if total_count >= 10:
+                    break
+
+        movies = list(movies) + list(selected_movies[:10 - len(movies)])
+
+    movie_serializer = MovieSerializer(movies, many=True, context={'request': request})
+    person_serializer = PersonSerializer(persons, many=True, context={'request': request})
+    data = movie_serializer.data + person_serializer.data
+
+    return Response(data, status=status.HTTP_200_OK)
