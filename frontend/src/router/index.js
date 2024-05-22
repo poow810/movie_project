@@ -76,7 +76,7 @@ const router = createRouter({
       component: LogOug
     },
     {
-      path: '/accounts/passwordchange',
+      path: '/accounts/password/reset',
       name: 'passwordchange',
       component: PasswordChange
     },

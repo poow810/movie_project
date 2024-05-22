@@ -91,8 +91,8 @@ def comment(request, post_id):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        user = request.user
-        comments = Comment.objects.filter(post=post_id, user=user)
+        comments = Comment.objects.filter(post=post_id)
+        print(comments)
         serializer = CommentSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
