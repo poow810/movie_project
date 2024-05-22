@@ -22,7 +22,9 @@ export const useMovieStore = defineStore('movieStore', () => {
 
   const movieReview = ref([])
 
-  const detailMovies = ref([])
+  const detailMovies = ref({})
+
+  const detailReviews = ref(null)
 
   // 평점 높은순
   const getRatedMovies = async () => {
@@ -132,8 +134,9 @@ export const useMovieStore = defineStore('movieStore', () => {
           Authorization: `Token ${store.token}`
         }
       })
-      isLiked.value = response.data.is_liked
-      likeCount.value = response.data.like_count
+      detailMovies.value.is_liked = response.data.is_liked
+      detailMovies.value.like_count = response.data.like_count
+      console.log(detailMovies.value)
 
     } catch (err) {
       console.log('좋아요 기능 처리 중 에러', err);
@@ -163,6 +166,10 @@ export const useMovieStore = defineStore('movieStore', () => {
     catch (err) {
       console.log('영화 리뷰 처리 중 에러', err);
     }
+  }
+
+  const updateReview = async (movieId, payload) => {
+
   }
 
   const getReview = async (movieId) => {
@@ -201,9 +208,22 @@ export const useMovieStore = defineStore('movieStore', () => {
       console.log('영화 검색 데이터 가져오기 실패:', err);
     }
   }
-    
+  
+  const getDetailReview = async (reviewId) => {
+    try {
+      const response = await axios.get(`http://192.168.214.72:8000/movie/review/detail/${reviewId}/`, {
+      headers: {
+        Authorization: `Token ${store.token}`
+      }
+    })
+    detailReviews.value = response.data
+    }
+    catch (err) {
+      console.log('영화 리뷰 데이터 가져오기 실패:', err);
+    }
+  }
 
   return { API_KEY, token, SERVER_URL, LOCAL_URL, nowPlayingMovies, ratedMovies, genreMovies, movieLike,
-    isLiked, likeCount, movieReview, detailMovies, movieDetail, getReview, createReview, getRatedMovies, getNowPlayingMovies, getGenreList,
-    getPopularMoviesByGenre, searchMovie }
+    isLiked, likeCount, movieReview, detailMovies, detailReviews, movieDetail, getReview, createReview, getRatedMovies, getNowPlayingMovies, getGenreList,
+    getPopularMoviesByGenre, searchMovie, getDetailReview }
 }, {persist: true})
