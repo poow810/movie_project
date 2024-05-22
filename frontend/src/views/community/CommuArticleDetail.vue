@@ -11,7 +11,8 @@
       <br>
       조회수: {{ article.click_count }}
       <button @click="handleFavorite(article.id)">
-        좋아요 ({{ articleStore.likeCount }})
+        <div v-if="articleStore.isLiked">좋아요 취소 ({{ articleStore.likeCount }})</div>
+        <div v-else>좋아요 ({{ articleStore.likeCount }})</div>
       </button>
       <hr>
       <CommentView v-if="article.id" :articleId="article.id" :key="article.id"/>
@@ -38,7 +39,7 @@ const postId = route.params.id
 const getDetailPost = async (postId) => {
   try {
     const res = await axios({
-      url: `http://192.168.214.72:8000/community/detail/${postId}/`,
+      url: `http://172.30.1.98:8000/community/detail/${postId}/`,
       method: 'GET',
       headers: {
         Authorization: `Token ${userStore.token}`
@@ -52,10 +53,12 @@ const getDetailPost = async (postId) => {
 }
 
 const handleFavorite = (postId) => {
+  console.log(articleStore.isLiked)
   articleStore.favoriteArticle(postId)
 }
 
 onMounted(() => {
+  console.log(articleStore.isLiked)
   getDetailPost(postId)
 })
 </script>
