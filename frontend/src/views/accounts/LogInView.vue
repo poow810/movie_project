@@ -53,7 +53,7 @@ body {
 }
 
 .form-control:focus {
-  background-color: #2C2C2C;
+  background-color: gainsboro;
   border-color: #CCB15F;
   box-shadow: none;
 }
