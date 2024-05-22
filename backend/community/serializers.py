@@ -13,7 +13,7 @@ class PostSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
-            fields = ('id', 'username')
+            fields = ('id', 'username', 'nickname')
 
     user = UserSerializer(read_only=True)
     likes_count = serializers.SerializerMethodField()
@@ -41,7 +41,7 @@ class CommentSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
-            fields = ('nickname', 'user_image')
+            fields = ('id', 'nickname', 'user_image')
 
     user = UserSerializer(read_only=True)
 
