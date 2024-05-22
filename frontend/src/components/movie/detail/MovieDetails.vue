@@ -3,7 +3,7 @@
     <h1>{{ movieStore.detailMovies.title }}</h1>
     <div v-if="isLiked"><button @click="toggleLike">좋아요 취소</button></div>
     <div v-else><button @click="toggleLike">좋아요</button></div>
-    <p>좋아요 개수: {{ movieStore.detailMovies.like_count }}</p>
+    <p>좋아요 개수: {{ movieStore.detailMovies.liked_count }}</p>
     <img :src="`https://image.tmdb.org/t/p/original`+movieStore.detailMovies.poster_path" alt="Movie Poster">
     <p>{{ movieStore.detailMovies.overview }}</p>
     <p>Release Date: {{ movieStore.detailMovies.release_date }}</p>
@@ -36,8 +36,11 @@ const userStore = useUserStore()
 const isLiked = ref(false)
 
 const toggleLike = async () => {
-  await movieStore.movieLike(movieId)
-  isLiked.value = !isLiked.value
+  const likeData = await movieStore.movieLike(movieId); // movieLike 함수의 반환값을 받습니다.
+  if (likeData) { // 정상적으로 데이터를 받았을 경우
+    isLiked.value = likeData.is_liked; // 좋아요 상태 업데이트
+    movieStore.detailMovies.liked_count = likeData.like_count; // 좋아요 개수 업데이트
+  }
 }
 
 onMounted(async () => {

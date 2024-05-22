@@ -1,8 +1,7 @@
 <template>
   <div>
-    <!-- 옵셔널 체이닝 및 조건부 렌더링 사용 -->
     <img :src="images[movieStore.detailReviews?.user_image || 0]" alt="User Image" style="width: 50px; height: 50px;">
-    <!-- 제목, 내용, title에 대한 올바른 접근 -->
+    <p>{{ movieStore.detailReviews?.user.nickname }}</p>    
     <p>제목: {{ movieStore.detailReviews?.title }}</p>
     <p>내용: {{ movieStore.detailReviews?.content }}</p>
     <p>평점: {{ movieStore.detailReviews?.rating }}</p>
