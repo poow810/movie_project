@@ -5,7 +5,6 @@ import LogInView from '@/views/accounts/LogInView.vue'
 import CommuView from '@/views/community/CommuView.vue'
 import CommuArticleCreateView from '@/views/community/CommuArticleCreateView.vue'
 import LogOug from '@/components/accounts/LogOut.vue'
-import PasswordChange from '@/components/accounts/PasswordChange.vue'
 import ActorView from '@/views/actors/ActorView.vue'
 import RecommendView from '@/views/recommend/RecommendView.vue'
 import CommuArticleDetail from '@/views/community/CommuArticleDetail.vue'
@@ -74,11 +73,6 @@ const router = createRouter({
       path: '/accounts/logout',
       name: 'logout',
       component: LogOug
-    },
-    {
-      path: '/accounts/password/reset',
-      name: 'passwordchange',
-      component: PasswordChange
     },
     {
       path: '/profile/:id',
