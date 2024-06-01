@@ -63,30 +63,15 @@ npm run dev
 
 # 프로젝트 개요
 ## IA (Information Architecture)
-- ![alt text](README_assets/image.png)
+![image1](https://github.com/poow810/movie_project/assets/111109429/860d664d-76a9-4775-bf9c-8869e9f003de)
 ## ERD
-- ![alt text](README_assets/ERD.png)
-- ![alt text](README_assets/ERD2.png)
+![ERD](https://github.com/poow810/movie_project/assets/111109429/6fa0da54-6604-4d4d-a002-419709797c68)
+![ERD2](https://github.com/poow810/movie_project/assets/111109429/3e6013c6-d4e0-4b8f-a66b-dd2d74a1884e)
+
 - MySQL 활용
   - 영화 데이터가 대규모인 만큼 쿼리 처리 성능이 중요한데, MySQL은 타 RDBMS보다 속도 성능이 우세함. <br>
 MySQL은 사용자가 많은 만큼 커뮤니티가 활성화됨으로써 Database 관련 에러를 겪었을 때, 참고할 수 있는 자료가 많음 <br>
 Workbench와 같은 도구를 통해 복잡한 쿼리문 대신 손쉽게 데이터에 접근, 제어가 가능함.
-
-## 시스템 구조
-- Router로 앱을 분리하여 관리
-  - Accounts, community, movie, profile, recommend 컴포넌트를 분리하여 관리
-  - Assets – genres, static, style 로 이미지와 스타일 관리
-- ![alt text](README_assets/image-1.png)
-- ![alt text](README_assets/image-2.png)
-- ![alt text](README_assets/image-3.png)
-- ![alt text](README_assets/image-4.png)
----
-- Server 내부 app관리
-  - Accounts, backend, community, movie 앱을 생성하여 관리
-- ![alt text](README_assets/image-5.png)
-- ![alt text](README_assets/image-6.png)
-- ![alt text](README_assets/image-7.png)
-- ![alt text](README_assets/image-8.png)
 
 ## 추천 알고리즘
 - 1. 영화 제목 이외에 배우와 감독으로 검색이 가능하도록 설계.
@@ -95,13 +80,12 @@ Workbench와 같은 도구를 통해 복잡한 쿼리문 대신 손쉽게 데이
 - 2. 검색 알고리즘, 날씨 기반 추천 알고리즘 설계
   - 검색 알고리즘 -> 영화, 이름으로 type을 구분. 각각의 model에서 필터링 -> 10개 미만의 데이터가 수집됐다면, 첫 번째 영화의 장르를 기준으로 combination -> 장르 조합을 만족하는 영화를 추가적으로 수집. 이 때, 가중치를 주어 장르 조합을 많이 만족하는 순서로 데이터를 수집하도록 설계. 영화 별 장르는 최대 4개를 초과하지 않기 때문에 최악의 경우에도 O(N^2^4*(쿼리평균수행시간))으로 볼 수 있음. -> 인덱싱을 통한 쿼리문 개선이 필요함
   - 날씨 추천 알고리즘 -> openweatherapi를 통한 날씨 데이터 수집 -> openai api에게 날씨 기반 장르 추천 데이터 수집. 장르를 파싱하여 해당 장르를 가진 영화들 중 랜덤하게 하나를 사용자에게 추천
-- ![alt text](README_assets/image-9.png)
+![image-9](https://github.com/poow810/movie_project/assets/111109429/1c587561-5a8c-4dd3-9343-9d90893e18b0)
+
 
 ## AI 활용 기술
 - 정규 표현식을 통한 장르 파싱
   - 해당 장르에 해당하는 영화 데이터 랜덤 추출
-- ![alt text](README_assets/image-10.png)
-- ![alt text](README_assets/image-11.png)
 
 # 기능 및 구현
 ## 1. Navbar : 네비게이션 바
